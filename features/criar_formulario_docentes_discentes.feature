@@ -1,5 +1,8 @@
 # language: pt
-Feature: Criar formulário para docentes ou discentes
+
+#Issue-4
+
+Funcionalidade: Criar formulário para docentes ou discentes
     Como administrador
     Quero definir o público-alvo de um formulário de avaliação
     A fim de garantir que apenas os participantes corretos visualizem e respondam o formulário

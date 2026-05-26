@@ -1,5 +1,7 @@
 # language: pt
 
+#Issue-6
+
 Funcionalidade: Visualização dos templates criados
   Como administrador
   Quero visualizar os templates de formulário existentes
