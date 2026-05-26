@@ -17,16 +17,24 @@ Funcionalidade: Redefinição de senha
     Cenário: [Feliz] Redefinir senha com link válido
         Dado que recebo um e-mail com um link de redefinição de senha válido
         Quando eu acesso o link e preencho o campo "Nova Senha" com uma senha válida
-        E confirmo a senha no campo "Confirmar Nova Senha"
+        E preencho o campo "Confirmar Senha" com a mesma senha informada no campo "Nova Senha"
+        E clico em "Salvar"
         Então a senha deve ser redefinida com sucesso
         E eu devo conseguir acessar o sistema utilizando a nova senha
-        Mas não devo conseguir acessar o sistema com a senha anterior
+        E não devo conseguir acessar o sistema com a senha anterior
 
-    Cenário: [Triste] Tentar redefinir com senha inválida
+    Cenário: [Triste] Tentar redefinir senha com campos vazios
         Dado que recebo um e-mail com um link de redefinição de senha válido
-        Quando eu acesso o link e não preencho o campo "Nova Senha"
-        E confirmo a senha no campo "Confirmar Nova Senha"
-        Então devo ver uma mensagem "Senha Inválida"
+        Quando eu acesso o link e não preencho os campos de senha
+        E clico em "Salvar"
+        Então devo ver a mensagem "Senha inválida"
+        E eu não devo conseguir acessar o sistema
+    
+    Cenário: [Triste] Tentar redefinir senhas que não correspondem
+        Dado que recebo um e-mail com um link de redefinição de senha válido
+        Quando eu acesso o link e preencho com senhas que não correspondem
+        E clico em "Salvar"
+        Então devo ver a mensagem "Senha inválida"
         E eu não devo conseguir acessar o sistema
     
     Cenário: [Triste] Tentar redefinir senha com link inválido
