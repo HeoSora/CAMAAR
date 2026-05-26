@@ -45,6 +45,3 @@ Funcionalidade: Cadastrar usuários do sistema
         E os dados estão válidos mas correspondem a usuários já existentes no sistema
         Então o sistema deve exibir uma mensagem de aviso "Aviso: Usuário já existe"
         E o sistema não deve criar solicitações de definição de senha para os usuários duplicados
-
-
-
