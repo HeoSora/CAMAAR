@@ -1,4 +1,4 @@
-#language: pt
+# language: pt
 
 #Issue - 13
 Funcionalidade: Sistema de Login
@@ -6,38 +6,29 @@ Funcionalidade: Sistema de Login
     Quero acessar o sistema utilizando um e-mail ou matrícula e uma senha já cadastrada
     A fim de responder formulários ou gerenciar o sistema
 
-    Regras de Negócio:
-        - O usuário deve conseguir acessar o sistema usuando e-mail ou matricula e senha cadastrado
-        - O sistema não deve permitir acesso com senha incorreta
-        - O sistema não deve permitir acesso com usuário não cadastrado
-        - Apos o login valido, o usuário deve ser redirecionado conforme seu perfil
-        - Usuarios com perfil administrador devem visualizar a opção de gerenciamento no menu lateral
-        - Usuarios com perfil discentes não devem visualizar opções administrativas
-
-
-    Cenario: [Feliz] Credencial de usuario comum valido
+    Cenário: [Feliz] Credencial de usuário comum válido
         Dado que acesso o formulário de "Login"
-        Quando eu preencher o campo de "Nome de usuario" com um e-mail ou matrícula cadastrados
+        Quando eu preencher o campo de "E-mail ou matrícula" com um e-mail ou matrícula cadastrados
         E no campo "Senha" a senha válida
         E utilizar credenciais do perfil "Discente"
-        Então devo ser redirecionado para a pagina com perfil de "Discente"
-        Mas não devo ver a opção de "gerenciamento" no menu lateral
+        Então devo ser redirecionado para a página com perfil de "Discente"
+        E não devo ver a opção de "Gerenciamento" no menu lateral
 
-    Cenario: [Feliz] Credencial de usuario administrador valido 
+    Cenário: [Feliz] Credencial de usuário administrador vÁlido 
         Dado que acesso o formulário de "Login"
-        Quando eu preencher o campo de "Nome de usuario" com um e-mail ou matrícula cadastrados
+        Quando eu preencher o campo de "E-mail ou matrícula" com um e-mail ou matrícula cadastrados
         E no campo "Senha" a senha válida
         E utilizar credenciais do perfil "administrador"
-        Então devo ser redirecionado para a pagina com perfil de "administrador" 
-        E devo ver a opção de "gerenciamento" no menu lateral
+        Então devo ser redirecionado para a página com perfil de "administrador" 
+        E devo ver a opção de "Gerenciamento" no menu lateral
 
-    Cenario: [Triste] Usuario inválido
+    Cenário: [Triste] Usuário inválido
         Dado que acesso o formulário de "Login"
-        E preencho os campos de "Usuario"
-        Quando tentar entrar com um o usuario não cadastrado 
-        Então devo ver uma mensagem "Usuário e/ou senha inválido"
+        E preencho os campos de "Usuário"
+        Quando tentar entrar com um usuário não cadastrado 
+        Então devo ver uma mensagem "Usuário e/ou senha inválidos"
 
-    Cenario: [Triste] Senha inválida
+    Cenário: [Triste] Senha inválida
         Dado que acesso o formulário de "Login"
         E preencho o campo "Senha" 
         Quando tentar preencher com uma senha incorreta
