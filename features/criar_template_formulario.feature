@@ -5,12 +5,12 @@
 Funcionalidade: Criar template de formulários
     Como administrador
     Quero criar um novo template de formulário
-    A fim utilizar este template para criar novos formulários
+    A fim de utilizar este template para criar novos formulários
 
     Cenário: [Feliz] Criar um novo template com questão do tipo Texto e questão do tipo Radio
         Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
         E eu acesso a página de gerenciamento de templates
-        Quando eu clico no card "+" para criar um novo template
+        Quando seleciono a opção de criar um novo template
         E preencho o campo "Nome do template" com "Avaliação Docente 2024.1"
         E adiciono uma questão do tipo "Texto" com o enunciado "Deixe seu comentário sobre a disciplina"
         E adiciono uma questão do tipo "Radio" com o enunciado "Como você avalia o docente?" e as opções "Ótimo", "Bom" e "Regular"
@@ -21,7 +21,7 @@ Funcionalidade: Criar template de formulários
     Cenário: [Triste] Tentar criar um template sem preencher o nome
         Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
         E eu acesso a página de gerenciamento de templates
-        Quando eu clico no card "+" para criar um novo template
+        Quando seleciono a opção de criar um novo template
         E deixo o campo "Nome do template" em branco
         E adiciono uma questão do tipo "Texto" com o enunciado "Comentários gerais"
         E clico no botão "Criar"
@@ -31,7 +31,7 @@ Funcionalidade: Criar template de formulários
     Cenário: [Triste] Tentar criar um template sem adicionar nenhuma questão
         Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
         E eu acesso a página de gerenciamento de templates
-        Quando eu clico no card "+" para criar um novo template
+        Quando seleciono a opção de criar um novo template
         E preencho o campo "Nome do template" com "Template Vazio"
         E clico no botão "Criar" sem adicionar nenhuma questão
         Então o sistema deve exibir a mensagem de erro "O template deve conter ao menos uma questão"
@@ -40,7 +40,7 @@ Funcionalidade: Criar template de formulários
     Cenário: [Triste] Tentar criar uma questão do tipo Radio sem adicionar opções de resposta
         Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
         E eu acesso a página de gerenciamento de templates
-        Quando eu clico no card "+" para criar um novo template
+        Quando seleciono a opção de criar um novo template
         E preencho o campo "Nome do template" com "Avaliação Semestral"
         E adiciono uma questão do tipo "Radio" com o enunciado "Como você avalia a disciplina?" sem opções de resposta
         E clico no botão "Criar"
@@ -50,7 +50,7 @@ Funcionalidade: Criar template de formulários
     Cenário: [Triste] Tentar criar uma questão com enunciado vazio
         Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
         E eu acesso a página de gerenciamento de templates
-        Quando eu clico no card "+" para criar um novo template
+        Quando seleciono a opção de criar um novo template
         E preencho o campo "Nome do template" com "Avaliação de Turma"
         E adiciono uma questão do tipo "Texto" com o enunciado em branco
         E clico no botão "Criar"
