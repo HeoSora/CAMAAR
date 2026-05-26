@@ -1,20 +1,26 @@
 # language: pt
 
-Feature: Visualização de resultados dos formulários
+Funcionalidade: Visualização de resultados dos formulários
   Como administrador
-  Quero visualizar os resultados parciais ou totais de uma turma
+  Quero visualizar os resultados parciais ou totais de um formulário criado
   A fim de acompanhar o andamento e o consolidado das avaliações anonimamente
 
-  Cenário: [Feliz] Visualizar resultados parciais de um formulário de turma
+  Cenário: [Feliz] Visualizar resultados de um formulário com respostas submetidas
     Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
+    E existe um formulário de avaliação criado para a turma "CIC0097 - BANCOS DE DADOS" com respostas submetidas
     Quando eu acesso a página de "Resultados das Avaliações"
-    E eu busco pelos resultados da turma "CIC0097"
+    E eu seleciono para visualizar os resultados deste formulário
     Então eu devo visualizar um painel com a média das notas e os comentários anonimizados
 
-  Cenário: [Triste] Tentar visualizar resultados de uma turma sem avaliações submetidas
+  Cenário: [Triste] Tentar visualizar resultados de um formulário sem avaliações submetidas
     Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
+    E existe um formulário de avaliação criado para a turma "CIC0105 - ENGENHARIA DE SOFTWARE" sem respostas submetidas
     Quando eu acesso a página de "Resultados das Avaliações"
-    E eu busco pelos resultados de uma turma que não teve nenhuma participação dos alunos
-    Então eu devo ver a mensagem "Ainda não há dados suficientes para gerar a visualização desta turma"
-    Então o sistema deve bloquear o envio
-    E exibir a mensagem "Por favor, insira um valor válido entre 1 e 5"
+    E eu seleciono para visualizar os resultados deste formulário
+    Então eu devo ver a mensagem "Ainda não há respostas suficientes para gerar a visualização deste formulário"
+
+  Cenário: [Triste] Tentar acessar os resultados dos formulários sem permissão
+    Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
+    Quando eu tento acessar a URL restrita da página de "Resultados das Avaliações"
+    Então o sistema deve bloquear o acesso
+    E exibir a mensagem de erro "Acesso negado: você não tem permissão para visualizar esta página"
