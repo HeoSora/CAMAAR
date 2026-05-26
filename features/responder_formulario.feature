@@ -1,14 +1,14 @@
 # language: pt
 
 Funcionalidade: Responder formulário
-  Como discente
+  Com o perfil de discente
   Quero preencher e enviar os formulários de avaliação
   A fim de registrar meu feedback sobre as disciplinas e docentes
 
   Cenário: [Feliz] Responder um formulário com todos os dados válidos
     Dado que eu estou logado no sistema CAMAAR como "discente" e matriculado na turma "CIC0097 - BANCOS DE DADOS"
     E eu estou na página de resposta do formulário desta turma
-    Quando eu preencho todas as perguntas obrigatórias com o valor "5"
+    Quando eu preencho todas as perguntas com respostas válidas
     E eu envio o formulário
     Então o sistema deve exibir a mensagem "Avaliação enviada com sucesso"
     E o formulário deve deixar de aparecer na minha lista de pendentes
@@ -32,5 +32,6 @@ Funcionalidade: Responder formulário
   Cenário: [Triste] Tentar responder novamente um formulário já enviado
     Dado que eu estou logado no sistema CAMAAR como "discente" e matriculado na turma "CIC0097 - BANCOS DE DADOS"
     E eu já enviei o formulário de avaliação desta turma anteriormente
-    Quando eu tento forçar o acesso à página de resposta deste formulário
+    Quando eu tento acessar diretamente à página de resposta deste formulário
     Então o sistema deve exibir a mensagem de erro "Este formulário já foi respondido"
+    E por fim não deve permitir nova submissão

@@ -18,7 +18,7 @@ Funcionalidade: Visualização de formulários para responder
     Quando eu acesso a aba de "Formulários Pendentes"
     Então eu devo ver a mensagem "Você não possui formulários pendentes para este semestre"
 
-  Cenário: [Triste] Não visualizar formulário de uma turma na qual não estou matriculado
+  Cenário: [Triste] Não visualizar formulários quando não há matrícula ativa
     Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
     E eu não estou matriculado na turma "CIC0105 - ENGENHARIA DE SOFTWARE"
     E existe um formulário aberto para esta turma
@@ -31,3 +31,4 @@ Funcionalidade: Visualização de formulários para responder
     E eu já respondi ao formulário de avaliação desta turma
     Quando eu acesso a aba de "Formulários Pendentes"
     Então eu não devo ver o formulário da turma "CIC0202 - PROGRAMAÇÃO CONCORRENTE" na lista
+    Logo, devo ver que não tem formulario pendente.

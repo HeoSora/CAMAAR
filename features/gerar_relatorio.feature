@@ -11,7 +11,7 @@ Funcionalidade: Gerar relatório do administrador
     Quando eu acesso a página de "Gerar Relatórios"
     E eu seleciono o formulário da turma "CIC0097 - BANCOS DE DADOS"
     E eu aciono a opção "Exportar para CSV"
-    Então o sistema deve gerar o arquivo de resultados
+    Então o sistema deve gerar o arquivo de CSV resultados
     E iniciar automaticamente o download do arquivo ".csv" correspondente
 
   Cenário: [Triste] Tentar baixar CSV de um formulário sem respostas submetidas
@@ -25,6 +25,6 @@ Funcionalidade: Gerar relatório do administrador
 
   Cenário: [Triste] Tentar baixar CSV com resultados de um formulário sem permissão de administrador
     Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
-    Quando eu tento forçar o acesso à URL de exportação de dados em CSV de um formulário
+    Quando eu tento acessar diretamente à URL de exportação de dados em CSV de um formulário
     Então o sistema deve bloquear a ação
     E exibir a mensagem de erro "Acesso negado: você não tem permissão para exportar dados"

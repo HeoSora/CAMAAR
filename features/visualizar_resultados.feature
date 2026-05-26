@@ -2,7 +2,7 @@
 
 Funcionalidade: Visualização de resultados dos formulários
   Como administrador
-  Quero visualizar os resultados parciais ou totais de um formulário criado
+  Quero visualizar os resultados dos formulários criados
   A fim de acompanhar o andamento e o consolidado das avaliações anonimamente
 
   Cenário: [Feliz] Visualizar resultados de um formulário com respostas submetidas
@@ -21,6 +21,6 @@ Funcionalidade: Visualização de resultados dos formulários
 
   Cenário: [Triste] Tentar acessar os resultados dos formulários sem permissão
     Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
-    Quando eu tento acessar a URL restrita da página de "Resultados das Avaliações"
+    Quando eu tento acessar a página de Resultados das Avaliações
     Então o sistema deve bloquear o acesso
     E exibir a mensagem de erro "Acesso negado: você não tem permissão para visualizar esta página"
