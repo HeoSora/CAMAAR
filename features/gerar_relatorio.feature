@@ -1,20 +1,30 @@
 # language: pt
 
-Feature: Gerar relatório do administrador
+Funcionalidade: Gerar relatório do administrador
   Como administrador
-  Quero gerar um relatório consolidado do semestre
-  A fim de obter um documento oficial com as métricas de todas as turmas avaliadas
+  Quero baixar um arquivo CSV com os resultados de um formulário específico
+  A fim de analisar os dados e métricas de avaliação detalhadamente
 
-  Cenário: [Feliz] Gerar relatório consolidado do semestre
-    Dado que eu estou na página de "Geração de Relatórios" como administrador
-    Quando eu seleciono o período letivo de "2021.2"
-    E eu aciono a opção "Gerar Relatório Geral"
-    Então o sistema deve compilar os dados de todas as turmas
-    E iniciar automaticamente o download de um arquivo contendo o relatório do semestre
+  Cenário: [Feliz] Baixar CSV com resultados de um formulário com respostas
+    Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
+    E existe um formulário criado para a turma "CIC0097 - BANCOS DE DADOS" com respostas submetidas
+    Quando eu acesso a página de "Gerar Relatórios"
+    E eu seleciono o formulário da turma "CIC0097 - BANCOS DE DADOS"
+    E eu aciono a opção "Exportar para CSV"
+    Então o sistema deve gerar o arquivo de resultados
+    E iniciar automaticamente o download do arquivo ".csv" correspondente
 
-  Cenário: [Triste] Tentar gerar relatório com filtros de período inválidos
-    Dado que eu estou na página de "Geração de Relatórios"
-    Quando eu defino uma data final que é anterior à data inicial nos filtros de busca
-    E eu aciono a opção "Gerar Relatório Geral"
-    Então o sistema deve exibir a mensagem de erro "Período inválido: a data final não pode ser anterior à inicial"
-    E a geração do relatório deve ser interrompida
+  Cenário: [Triste] Tentar baixar CSV de um formulário sem respostas submetidas
+    Dado que eu estou logado no sistema CAMAAR com o perfil de "administrador"
+    E existe um formulário criado para a turma "CIC0105 - ENGENHARIA DE SOFTWARE" sem respostas submetidas
+    Quando eu acesso a página de "Gerar Relatórios"
+    E eu seleciono o formulário da turma "CIC0105 - ENGENHARIA DE SOFTWARE"
+    E eu tento acionar a opção "Exportar para CSV"
+    Então o sistema deve exibir a mensagem de erro "Não há dados suficientes para exportar este formulário"
+    E o download não deve ser iniciado
+
+  Cenário: [Triste] Tentar baixar CSV com resultados de um formulário sem permissão de administrador
+    Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
+    Quando eu tento forçar o acesso à URL de exportação de dados em CSV de um formulário
+    Então o sistema deve bloquear a ação
+    E exibir a mensagem de erro "Acesso negado: você não tem permissão para exportar dados"
