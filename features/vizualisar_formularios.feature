@@ -31,4 +31,4 @@ Funcionalidade: Visualização de formulários para responder
     E eu já respondi ao formulário de avaliação desta turma
     Quando eu acesso a aba de "Formulários Pendentes"
     Então eu não devo ver o formulário da turma "CIC0202 - PROGRAMAÇÃO CONCORRENTE" na lista
-    Logo, devo ver que não tem formulario pendente.
+    E devo ver que não tem formulario pendente.
