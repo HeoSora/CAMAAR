@@ -61,7 +61,6 @@ require 'selenium-webdriver'
 Capybara.configure do |config|
   config.default_driver      = :selenium_chrome_headless
   config.default_max_wait_time = 5
-  config.app_host            = ENV.fetch('APP_HOST', 'http://localhost:3000')
   config.ignore_hidden_elements = true
 end
 
@@ -75,5 +74,5 @@ Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
-# World(Capybara::DSL)
-# World(RSpec::Matchers)
+# World(Capybara::DSL) -- já incluso por capybara/cucumber
+World(RSpec::Matchers)

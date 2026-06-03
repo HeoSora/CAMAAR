@@ -59,16 +59,10 @@ group :development do
   gem "web-console"
 end
 
-
-# Add cucumber-rails
-
-group :development, :test do
+group :test do
   gem "cucumber-rails", require: false
-  # database_cleaner is not mandatory, but highly recommended
   gem "database_cleaner"
-
   gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
-
 end
