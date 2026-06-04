@@ -27,7 +27,7 @@ ActionController::Base.allow_rescue = false
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
-  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner.strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
@@ -60,6 +60,7 @@ require 'selenium-webdriver'
 
 Capybara.configure do |config|
   config.default_driver      = :selenium_chrome_headless
+  config.javascript_driver   = :selenium_chrome_headless
   config.default_max_wait_time = 5
   config.ignore_hidden_elements = true
 end
