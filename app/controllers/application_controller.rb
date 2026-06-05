@@ -7,9 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def autenticar_usuario!
-    unless session[:usuario_id]
-      redirect_to login_path, alert: "Você precisa estar logado para acessar esta página."
-    end
+    redirect_to login_path, alert: "Você precisa estar logado." unless session[:usuario_id]
   end
 
   def usuario_logado
@@ -37,20 +35,10 @@ class ApplicationController < ActionController::Base
   end
 
   def exigir_discente!
-    unless discente_logado?
-      redirect_to root_path, alert: "Acesso restrito a discentes."
-    end
+    redirect_to root_path, alert: "Acesso restrito a discentes." unless discente_logado?
   end
 
   def exigir_docente!
-    unless docente_logado?
-      redirect_to root_path, alert: "Acesso restrito a docentes."
-    end
-  end
-
-  def exigir_admin!
-    unless admin_logado?
-      redirect_to root_path, alert: "Acesso restrito a administradores."
-    end
+    redirect_to root_path, alert: "Acesso restrito a docentes." unless docente_logado?
   end
 end
