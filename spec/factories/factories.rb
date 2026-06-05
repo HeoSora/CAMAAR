@@ -1,13 +1,17 @@
 # spec/factories/factories.rb
+#
+# CORREÇÃO: factories usam `password:` (não `senha_hash:`)
+# has_secure_password aceita `password` e armazena em `password_digest`
+#
 FactoryBot.define do
 
   factory :usuario do
-    sequence(:login)  { |n| "usuario#{n}" }
-    sequence(:email)  { |n| "usuario#{n}@unb.br" }
-    sequence(:nome)   { |n| "Usuário #{n}" }
-    password          { "Senha123!" }
-    perfil            { :discente }
-    primeiro_acesso   { false }
+    sequence(:login) { |n| "usuario#{n}" }
+    sequence(:email) { |n| "usuario#{n}@unb.br" }
+    sequence(:nome)  { |n| "Usuário #{n}" }
+    password         { "Senha123!" }   # ← era senha_hash: (errado)
+    perfil           { :discente }
+    primeiro_acesso  { false }
   end
 
   factory :departamento do
@@ -21,7 +25,7 @@ FactoryBot.define do
 
   factory :discente do
     association :usuario, perfil: :discente
-    sequence(:matricula) { |n| "20000#{n.to_s.rjust(5, '0')}" }
+    sequence(:matricula) { |n| "2000#{n.to_s.rjust(5, '0')}" }
     curso { "CIÊNCIA DA COMPUTAÇÃO/CIC" }
   end
 
@@ -51,7 +55,7 @@ FactoryBot.define do
 
   factory :questao_template do
     association :template
-    sequence(:enunciado) { |n| "Questão #{n}: Como você avalia este item?" }
+    sequence(:enunciado) { |n| "Como você avalia o item #{n}?" }
     tipo { :aberta }
   end
 
@@ -83,7 +87,7 @@ FactoryBot.define do
   factory :resposta do
     association :envio_formulario
     association :questao
-    conteudo { "Resposta de exemplo" }
+    conteudo { "Minha resposta de exemplo" }
   end
 
 end
