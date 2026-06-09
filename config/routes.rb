@@ -1,23 +1,21 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  #get "sessions/new"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get    "/login",  to: "sessoes#new",     as: :login
+  post   "/login",  to: "sessoes#create"
+  delete "/logout", to: "sessoes#destroy", as: :logout
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get   "/usuarios/mudar-senha", to: "usuarios#mudar_senha",    as: :mudar_senha
+  patch "/usuarios/mudar-senha", to: "usuarios#atualizar_senha"
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # Issue #8 — listar e visualizar formulários (discente)
+  resources :formularios, only: [:index, :show] do
+    member do
+      get :minha_resposta
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-  root "sessions#new"
+  # Issue #18 — responder formulário (discente)
+  resources :envio_formularios, only: [:new, :create]
 
-  get "/login", to: "sessions#new", as: :login
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy", as: :logout
-
-  get "/admin", to: "dashboards#admin", as: :admin_dashboard
-  get "/discente", to: "dashboards#discente", as: :discente_dashboard
+  root to: "dashboard#index"
 end
