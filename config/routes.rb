@@ -22,4 +22,6 @@ Rails.application.routes.draw do
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
+
+  resources :turmas, only: [:index, :show]
 end
