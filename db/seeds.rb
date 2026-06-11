@@ -24,3 +24,17 @@ User.find_or_create_by!(email: "novo@camaar.com") do |user|
   user.perfil = "Discente"
   user.primeiro_acesso = true
 end
+
+# Issue #11 — Gerenciamento por departamento
+departamento = Departamento.find_or_create_by!(nome: "Fábrica de Software")
+
+admin_user = User.find_by!(email: "admin@camaar.com")
+Admin.find_or_create_by!(user: admin_user, departamento: departamento)
+
+Turma.find_or_create_by!(codigo: "FGA0001", departamento: departamento) do |turma|
+  turma.nome = "Engenharia de Software"
+end
+
+Turma.find_or_create_by!(codigo: "FGA0002", departamento: departamento) do |turma|
+  turma.nome = "Estrutura de Dados"
+end
