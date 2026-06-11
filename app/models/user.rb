@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password validations: false
 
+  has_many :admins, dependent: :destroy
+  has_many :departamentos, through: :admins
+
   validates :nome, presence: true
   validates :email, presence: true, uniqueness: true
   validates :matricula, presence: true, uniqueness: true
