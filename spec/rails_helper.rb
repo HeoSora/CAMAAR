@@ -47,6 +47,21 @@ RSpec.configure do |config|
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
+  # RSpec.configure do |config|
+  # ... suas outras configurações ...
+
+  config.before(:each, type: :system) do
+    # Verifica se a máquina tem Chrome
+    has_chrome = !`which google-chrome 2>/dev/null || which chrome 2>/dev/null`.empty?
+
+      if has_chrome
+        # Código para o seu colega (Usa o Chrome normal com interface)
+        driven_by :selenium, using: :headless_chrome
+      else
+        # Código baseado na sua sugestão (Usa o Firefox normal com interface)
+        driven_by :selenium, using: :headless_firefox
+      end
+    end
 
   # RSpec Rails uses metadata to mix in different behaviours to your tests,
   # for example enabling you to call `get` and `post` in request specs. e.g.:

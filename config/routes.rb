@@ -20,4 +20,12 @@ Rails.application.routes.draw do
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
+  get "/avaliacao", to: "dashboards#admin_avaliacao", as: :admin_avaliacao_dashboard
+  get "/gerenciamento", to: "dashboards#admin_gerenciamento", as: :admin_gerenciamento_dashboard
+
+  #usando o controller existente
+  #get '/json/importar', to: 'json#importar'
+  #get '/json/resultados', to: 'json#resultados'
+  post 'admin/importar_json', to: 'dashboards#importar_json', as: :importar_json
+
 end

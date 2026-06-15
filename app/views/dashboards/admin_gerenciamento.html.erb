@@ -1,0 +1,132 @@
+
+
+<% content_for :stylesheet, stylesheet_link_tag("admin", "data-turbo-track": "reload") %>
+<% content_for :stylesheet, stylesheet_link_tag("admin_gerenciamento", "data-turbo-track": "reload") %>
+
+<section class="conteudo-admin" id="Gerenciamento">
+  <h1>Painel de Gerenciamento</h1>
+    <p>Aqui você pode gerenciar as configurações do painel administrativo.</p>
+  
+  <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+    
+    <ul class="ger-menu">
+
+      <li class="ger-link"> 
+        <label class="ger-btn" for="arquivo_json" role="button" style="cursor: pointer;">Importar Dados</label>      </li>
+
+      <li class="ger-link"> 
+        <a class="ger-btn" href="#" role="button">Editar templates</a>
+      </li>
+
+      <li class="ger-link"> 
+        <a class="ger-btn" href="#" role="button">Enviar Formulários</a>
+      </li>
+
+      <li class="ger-link"> 
+        <a class="ger-btn" href="#" role="button">Resultados</a>
+      </li>
+    
+    </ul>
+
+    
+  </div>
+
+    <form action="/admin/importar_json" enctype="multipart/form-data" method="post" id="secao_importa">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <fieldset style="border: none; padding: 0; margin: 0;">
+        <input type="file" id="arquivo_json" name="arquivo_json" accept=".json" style="display: none;" onchange="this.form.submit();" />
+      </fieldset>
+    </form>
+
+
+<!---->
+<hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;" />
+
+<div class="dashboard-tabelas">
+  
+  <div class="secao-tabela" style="margin-bottom: 40px;">
+    <h2>Turmas Cadastradas (<%= @turmas.count %>)</h2>
+    <% if @turmas.any? %>
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
+            <th style="padding: 12px;">Código da Disciplina</th>
+            <th style="padding: 12px;">Turma</th>
+            <th style="padding: 12px;">Semestre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @turmas.each do |turma| %>
+            <tr style="border-bottom: 1px solid #dee2e6;">
+              <td style="padding: 12px; font-weight: bold;"><%= turma.codigo.upcase %></td>
+              <td style="padding: 12px;"><%= turma.turma %></td>
+              <td style="padding: 12px;"><%= turma.semestre %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p style="color: #777; font-style: italic;">Nenhuma turma cadastrada.</p>
+    <% end %>
+  </div>
+
+  <div class="secao-tabela" style="margin-bottom: 40px;">
+    <h2>Discentes Cadastrados (<%= @discentes.count %>)</h2>
+    <% if @discentes.any? %>
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
+            <th style="padding: 12px;">Nome</th>
+            <th style="padding: 12px;">Matrícula</th>
+            <th style="padding: 12px;">Curso</th>
+            <th style="padding: 12px;">E-mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @discentes.each do |aluno| %>
+            <tr style="border-bottom: 1px solid #dee2e6;">
+              <td style="padding: 12px;"><%= aluno.nome.titleize %></td>
+              <td style="padding: 12px;"><%= aluno.matricula %></td>
+              <td style="padding: 12px;"><%= aluno.curso.upcase %></td>
+              <td style="padding: 12px; color: #555;"><%= aluno.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p style="color: #777; font-style: italic;">Nenhum discente cadastrado.</p>
+    <% end %>
+  </div>
+
+  <div class="secao-tabela" style="margin-bottom: 40px;">
+    <h2>Docentes Cadastrados (<%= @docentes.count %>)</h2>
+    <% if @docentes.any? %>
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
+            <th style="padding: 12px;">Nome</th>
+            <th style="padding: 12px;">Departamento / Ocupação</th>
+            <th style="padding: 12px;">Usuário de Login</th>
+            <th style="padding: 12px;">E-mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @docentes.each do |professor| %>
+            <tr style="border-bottom: 1px solid #dee2e6;">
+              <td style="padding: 12px;"><%= professor.nome.titleize %></td>
+              <td style="padding: 12px;"><%= professor.ocupacao&.upcase %></td>
+              <td style="padding: 12px; font-family: monospace;"><%= professor.usuario %></td>
+              <td style="padding: 12px; color: #555;"><%= professor.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p style="color: #777; font-style: italic;">Nenhum docente cadastrado.</p>
+    <% end %>
+  </div>
+
+</div>
+<!---->
+    
+</section>

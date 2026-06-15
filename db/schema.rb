@@ -10,7 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_15_063634) do
+  create_table "dado_users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "curso"
+    t.string "email"
+    t.string "formacao"
+    t.string "matricula"
+    t.string "nome"
+    t.string "ocupacao"
+    t.datetime "updated_at", null: false
+    t.string "usuario"
+  end
+
+  create_table "discentes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "curso"
+    t.string "email"
+    t.string "formacao"
+    t.string "matricula"
+    t.string "nome"
+    t.string "ocupacao"
+    t.integer "turma_id", null: false
+    t.datetime "updated_at", null: false
+    t.string "usuario"
+    t.index ["turma_id"], name: "index_discentes_on_turma_id"
+  end
+
+  create_table "docentes", force: :cascade do |t|
+    t.string "ccupacao"
+    t.datetime "created_at", null: false
+    t.string "departamento"
+    t.string "email"
+    t.string "formacao"
+    t.string "nome"
+    t.string "turma"
+    t.datetime "updated_at", null: false
+    t.string "usuario"
+  end
+
+  create_table "turmas", force: :cascade do |t|
+    t.string "codigo"
+    t.datetime "created_at", null: false
+    t.string "semestre"
+    t.string "turma"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -22,4 +68,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["matricula"], name: "index_users_on_matricula", unique: true
   end
+
+  add_foreign_key "discentes", "turmas"
 end
