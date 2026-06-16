@@ -1,0 +1,31 @@
+<p>
+  <%= link_to "← Voltar para Template",
+              form_template_path(@question.form_template) %>
+</p>
+
+<h1>Alternativas</h1>
+
+<p>
+  <strong>Pergunta:</strong>
+  <%= @question.statement %>
+</p>
+
+<hr>
+
+<% if @choices.any? %>
+  <ul>
+    <% @choices.each do |choice| %>
+      <li><%= choice.text %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhuma alternativa cadastrada.</p>
+<% end %>
+
+<p>
+  <%= link_to "Adicionar Alternativa",
+      new_form_template_question_choice_path(
+        @question.form_template,
+        @question
+      ) %>
+</p>

@@ -20,4 +20,10 @@ Rails.application.routes.draw do
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
+
+  resources :form_templates, only: [:index, :new, :create, :show, :destroy] do
+    resources :questions, only: [:new, :create] do
+      resources :choices, only: [:index, :new, :create]
+    end
+  end
 end
