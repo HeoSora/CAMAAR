@@ -59,8 +59,8 @@ require 'rspec/expectations'
 require 'selenium-webdriver'
 
 Capybara.configure do |config|
-  config.default_driver      = :selenium_chrome_headless
-  config.javascript_driver   = :selenium_chrome_headless
+  config.default_driver = :rack_test
+  config.javascript_driver = :selenium_chrome_headless
   config.default_max_wait_time = 5
   config.ignore_hidden_elements = true
 end
