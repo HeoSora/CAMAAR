@@ -10,7 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_15_063634) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "departamento_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["departamento_id"], name: "index_admins_on_departamento_id"
+    t.index ["user_id", "departamento_id"], name: "index_admins_on_user_id_and_departamento_id", unique: true
+    t.index ["user_id"], name: "index_admins_on_user_id"
+  end
+
+  create_table "departamentos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "nome", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nome"], name: "index_departamentos_on_nome", unique: true
+  end
+
+  create_table "turmas", force: :cascade do |t|
+    t.string "codigo", null: false
+    t.datetime "created_at", null: false
+    t.integer "departamento_id", null: false
+    t.string "nome", null: false
+    t.datetime "updated_at", null: false
+    t.index ["departamento_id"], name: "index_turmas_on_departamento_id"
+  end
+
+
   create_table "dado_users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "curso"
@@ -57,18 +84,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_063634) do
     t.datetime "updated_at", null: false
   end
 
+
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "matricula", null: false
     t.string "nome", null: false
-    t.string "password_digest", null: false
+    t.string "password_digest"
     t.string "perfil", null: false
-    t.boolean "primeiro_acesso", default: true
+    t.boolean "primeiro_acesso", default: true, null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["matricula"], name: "index_users_on_matricula", unique: true
   end
+
+  add_foreign_key "admins", "departamentos"
+  add_foreign_key "admins", "users"
+  add_foreign_key "turmas", "departamentos"
 
   add_foreign_key "discentes", "turmas"
 end
