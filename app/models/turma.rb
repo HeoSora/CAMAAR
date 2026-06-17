@@ -1,3 +1,4 @@
+# app/models/turma.rb
 class Turma < ApplicationRecord
   belongs_to :departamento
 

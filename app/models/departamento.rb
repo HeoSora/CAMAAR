@@ -1,3 +1,4 @@
+# app/models/departamento.rb
 class Departamento < ApplicationRecord
   has_many :admins, dependent: :restrict_with_error
   has_many :users, through: :admins
