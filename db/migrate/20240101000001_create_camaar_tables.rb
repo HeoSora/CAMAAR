@@ -5,7 +5,6 @@
 #
 class CreateCamaarTables < ActiveRecord::Migration[7.1]
   def change
-
     create_table :usuarios do |t|
       t.string  :login,           null: false
       t.string  :password_digest, null: false   # ← era senha_hash (incompatível)
@@ -59,7 +58,7 @@ class CreateCamaarTables < ActiveRecord::Migration[7.1]
       t.references :turma,    null: false, foreign_key: true
       t.timestamps
     end
-    add_index :matriculas, [:discente_id, :turma_id], unique: true
+    add_index :matriculas, [ :discente_id, :turma_id ], unique: true
 
     create_table :templates do |t|
       t.string     :titulo,   null: false
@@ -103,7 +102,7 @@ class CreateCamaarTables < ActiveRecord::Migration[7.1]
       t.datetime   :enviado_em
       t.timestamps
     end
-    add_index :envio_formularios, [:formulario_id, :discente_id], unique: true
+    add_index :envio_formularios, [ :formulario_id, :discente_id ], unique: true
 
     create_table :respostas do |t|
       t.text       :conteudo,         null: false
@@ -111,6 +110,5 @@ class CreateCamaarTables < ActiveRecord::Migration[7.1]
       t.references :questao,          null: false, foreign_key: true
       t.timestamps
     end
-
   end
 end

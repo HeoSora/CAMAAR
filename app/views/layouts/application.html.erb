@@ -213,12 +213,8 @@
       <% if discente_logado? %>
         <%= link_to "Meus Formulários", formularios_path %>
       <% end %>
-      <% if docente_logado? || admin_logado? %>
-        <%= link_to "Templates", templates_path %>
-        <%= link_to "Formulários", formularios_path %>
-      <% end %>
       <% if admin_logado? %>
-        <%= link_to "Gerenciamento", departamentos_path %>
+        <%= link_to "Gerenciamento", turmas_path %>
       <% end %>
 
       <div class="header-user">
