@@ -6,11 +6,13 @@ module Importer
       file_path = File.read(upload_file.tempfile.path)
       data_hash = JSON.parse(file_path)
 
+
+
       ActiveRecord::Base.transaction do
         unique_turmas = data_hash.uniq { |t| [ t["code"], t["classCode"], t["semester"] ] }
 
         turma_objects = unique_turmas.map do |t|
-          Turma.new(codigo: t["code"], turma: t["classCode"], semestre: t["semester"])
+          Turma.new(codigo: t["code"], turma: t["classCode"], semestre: t["semester"], departamento: "Ciência da Computação")
         end
         # duplicação de objetos
         Turma.import turma_objects, on_duplicate_key_ignore: true, validate: false
