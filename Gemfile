@@ -27,4 +27,8 @@ end
 group :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "database_cleaner-active_record"
+  gem "cucumber-rails", require: false
+  gem "database_cleaner"
+  gem "capybara"
+  gem "selenium-webdriver"
 end

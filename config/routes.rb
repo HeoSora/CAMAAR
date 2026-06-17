@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   root to: "dashboard#index"
 Rails.application.routes.draw do
-  #get "sessions/new"
+  # get "sessions/new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -38,6 +38,11 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
+  get   "/definir_senha", to: "passwords#edit",   as: :definir_senha
+  patch "/definir_senha", to: "passwords#update", as: :definir_senha_update
+
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
+
+  resources :turmas, only: [:index, :show]
 end

@@ -13,4 +13,9 @@ class Turma < ApplicationRecord
   def nome_completo
     "#{disciplina.nome} – #{codigo} (#{semestre})"
   end
+class Turma < ApplicationRecord
+  belongs_to :departamento
+
+  validates :codigo, presence: true
+  validates :nome, presence: true
 end
