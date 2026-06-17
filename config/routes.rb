@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get "/avaliacao", to: "dashboards#admin_avaliacao", as: :admin_avaliacao_dashboard
   get "/gerenciamento", to: "dashboards#admin_gerenciamento", as: :admin_gerenciamento_dashboard
 
+  get   "/definir_senha", to: "passwords#edit",   as: :definir_senha
+  patch "/definir_senha", to: "passwords#update", as: :definir_senha_update
+
   # usando o controller existente
   # get '/json/importar', to: 'json#importar'
   # get '/json/resultados', to: 'json#resultados'

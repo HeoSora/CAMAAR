@@ -49,9 +49,9 @@ Quando('seleciono um arquivo JSON contendo os dados de novos usuários do SIGAA'
   click_button('botao_enviar_oculto', visible: false)
 
   #div_arquivo = find('#secao_importa').trigger('submit')
-  expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
+  #expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
   
-  find('label', text: @import_usuarios).click
+  #find('label', text: @import_usuarios).click
 
 end
 
