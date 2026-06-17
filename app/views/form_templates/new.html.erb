@@ -1,0 +1,19 @@
+<h1>Criar Template</h1>
+
+<%= form_with model: @form_template do |f| %>
+  <div>
+    <%= f.label :title, "Título" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= f.label :description, "Descrição" %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <br>
+
+  <%= f.submit "Salvar Template" %>
+<% end %>

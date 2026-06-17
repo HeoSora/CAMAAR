@@ -1,0 +1,19 @@
+<h1>Adicionar Alternativa</h1>
+
+<p>
+  <strong>Pergunta:</strong>
+  <%= @question.statement %>
+</p>
+
+<%= form_with model: [@question.form_template, @question, @choice] do |f| %>
+
+  <div>
+    <%= f.label :text, "Texto da Alternativa" %><br>
+    <%= f.text_field :text %>
+  </div>
+
+  <br>
+
+  <%= f.submit "Salvar Alternativa" %>
+
+<% end %>

@@ -1,0 +1,33 @@
+<p>
+  <%= link_to "← Voltar ao Dashboard",
+              admin_dashboard_path %>
+</p>
+
+<h1>Meus Templates</h1>
+
+<p>
+  <%= link_to "Novo Template", new_form_template_path %>
+</p>
+
+<hr>
+
+<% if @form_templates.any? %>
+  <ul>
+    <% @form_templates.each do |template| %>
+      <li>
+        <%= link_to template.title,
+                    form_template_path(template) %>
+
+        <%= button_to "Excluir",
+                      form_template_path(template),
+                      method: :delete,
+                      form: { style: "display:inline;" },
+                      data: {
+                        turbo_confirm: "Deseja excluir este template?"
+                      } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Você ainda não criou nenhum template.</p>
+<% end %>

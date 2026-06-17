@@ -1,0 +1,50 @@
+<p>
+  <%= link_to "← Voltar para Templates", form_templates_path %>
+</p>
+
+<h1><%= @form_template.title %></h1>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @form_template.description %>
+</p>
+
+<hr>
+
+<h2>Perguntas</h2>
+
+<% if @form_template.questions.any? %>
+  <ul>
+    <% @form_template.questions.each do |question| %>
+      <li>
+        <%= question.statement %>
+        (<%= question.question_type %>)
+
+        <% if question.multiple_choice? %>
+          -
+          <%= link_to "Gerenciar Alternativas",
+              form_template_question_choices_path(
+                @form_template,
+                question
+              ) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhuma pergunta cadastrada.</p>
+<% end %>
+
+<p>
+  <%= link_to "Adicionar Pergunta",
+              new_form_template_question_path(@form_template) %>
+</p>
+
+<hr>
+
+<%= button_to "Excluir Template",
+              form_template_path(@form_template),
+              method: :delete,
+              data: {
+                turbo_confirm: "Tem certeza que deseja excluir este template?"
+              } %>

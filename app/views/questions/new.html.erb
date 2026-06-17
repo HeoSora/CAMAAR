@@ -1,0 +1,29 @@
+<p>
+  <%= link_to "← Voltar para Template",
+              form_template_path(@form_template) %>
+</p>
+
+<h1>Adicionar Pergunta</h1>
+
+<%= form_with model: [@form_template, @question] do |f| %>
+
+  <div>
+    <%= f.label :statement, "Enunciado" %><br>
+    <%= f.text_area :statement %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= f.label :question_type, "Tipo de Pergunta" %><br>
+
+    <%= f.select :question_type,
+                 [["Discursiva", "essay"],
+                  ["Múltipla Escolha", "multiple_choice"]] %>
+  </div>
+
+  <br>
+
+  <%= f.submit "Salvar Pergunta" %>
+
+<% end %>
