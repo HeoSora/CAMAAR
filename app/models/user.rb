@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :admins, dependent: :destroy
   has_many :departamentos, through: :admins
+  has_many :templates, dependent: :destroy
 
   validates :nome, presence: true
   validates :email, presence: true, uniqueness: true

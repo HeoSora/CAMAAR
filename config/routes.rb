@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # Render dynamic PWA files from app/views/pwa/*.
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
@@ -18,11 +18,12 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
-  get   "/definir_senha", to: "passwords#edit",   as: :definir_senha
+  get "/definir_senha", to: "passwords#edit", as: :definir_senha
   patch "/definir_senha", to: "passwords#update", as: :definir_senha_update
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
 
-  resources :turmas, only: [:index, :show]
+  resources :templates, only: [ :index ]
+  resources :turmas, only: [ :index, :show ]
 end
