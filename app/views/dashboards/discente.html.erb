@@ -5,13 +5,16 @@
     <nav>
       <ul>
         <li>Início</li>
-        <li>Formulários</li>
       </ul>
     </nav>
   </aside>
 
   <main class="dashboard-content">
+    <% if alert.present? %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
     <h1>Perfil de Discente</h1>
-    <p>Bem-vindo à área do discente.</p>
+    <p>Bem-vindo ao painel do discente.</p>
   </main>
 </div>

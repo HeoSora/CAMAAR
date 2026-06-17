@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
-  get   "/definir_senha", to: "passwords#edit",   as: :definir_senha
+  get "/definir_senha", to: "passwords#edit", as: :definir_senha
   patch "/definir_senha", to: "passwords#update", as: :definir_senha_update
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
