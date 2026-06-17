@@ -1,6 +1,9 @@
+# app/models/template.rb
 class Template < ApplicationRecord
-  belongs_to :user
+  belongs_to :docente
 
-  validates :nome, presence: true
-  validates :semestre, presence: true
+  has_many :questao_templates, dependent: :destroy
+  has_many :formularios,       dependent: :restrict_with_error
+
+  validates :titulo, presence: true
 end

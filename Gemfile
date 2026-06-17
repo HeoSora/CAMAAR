@@ -53,7 +53,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -62,8 +62,11 @@ group :development do
 end
 
 group :test do
+  gem "shoulda-matchers", "~> 5.0"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
+  gem "database_cleaner-active_record"
+  gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
 end

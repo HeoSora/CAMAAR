@@ -51,10 +51,6 @@ Quando('preencho o campo {string} com qualquer senha') do |campo|
   fill_in campo, with: 'qualquer'
 end
 
-Então('devo ver uma mensagem {string}') do |mensagem|
-  expect(page).to have_content(mensagem)
-end
-
 Quando('eu preencho o campo de {string} com um e-mail ou matrícula cadastrado') do |campo|
   @usuario = User.create!(
     nome: 'Discente Teste',

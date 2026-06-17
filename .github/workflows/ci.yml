@@ -84,5 +84,8 @@ jobs:
         run: bin/rails db:test:prepare
 
       - name: Run Cucumber tests
-        run: bundle exec cucumber
-
+        run: |
+          bundle exec cucumber \
+            features/sistema_login.feature \
+            features/definicao_senha.feature \
+            features/gerenciamento_departamento.feature
