@@ -3,7 +3,7 @@
     <section class="login-form-section">
       <h1>LOGIN</h1>
 
-      <%= form_with url: login_path, method: :post, local: true do |form| %>
+      <%= form_with url: login_path, method: :post, local: true, data: { turbo: false } do |form| %>
         <div class="form-group">
           <%= form.label :identifier, "E-mail ou matrícula" %>
           <%= form.text_field :identifier, placeholder: "aluno@aluno.unb.br" %>
