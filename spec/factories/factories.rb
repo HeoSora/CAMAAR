@@ -4,7 +4,6 @@
 # has_secure_password aceita `password` e armazena em `password_digest`
 #
 FactoryBot.define do
-
   factory :usuario do
     sequence(:login) { |n| "usuario#{n}" }
     sequence(:email) { |n| "usuario#{n}@unb.br" }
@@ -89,5 +88,4 @@ FactoryBot.define do
     association :questao
     conteudo { "Minha resposta de exemplo" }
   end
-
 end

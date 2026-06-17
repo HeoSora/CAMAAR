@@ -1,53 +1,10 @@
-# app/controllers/application_controller.rb
-class ApplicationController < ActionController::Base
-  before_action :autenticar_usuario!
-
-  helper_method :usuario_logado, :discente_logado?, :docente_logado?, :admin_logado?
-
-  private
-
-  def autenticar_usuario!
-    redirect_to login_path, alert: "Você precisa estar logado." unless session[:usuario_id]
-  end
-
-  def usuario_logado
-    @usuario_logado ||= Usuario.find_by(id: session[:usuario_id])
-  end
-
-  def discente_atual
-    @discente_atual ||= usuario_logado&.discente
-  end
-
-  def docente_atual
-    @docente_atual ||= usuario_logado&.docente
-  end
-
-  def discente_logado?
-    usuario_logado&.discente?
-  end
-
-  def docente_logado?
-    usuario_logado&.docente?
-  end
-
-  def admin_logado?
-    usuario_logado&.admin?
-  end
-
-  def exigir_discente!
-    redirect_to root_path, alert: "Acesso restrito a discentes." unless discente_logado?
-  end
-
-  def exigir_docente!
-    redirect_to root_path, alert: "Acesso restrito a docentes." unless docente_logado?
-  end
-end
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   stale_when_importmap_changes
 
-  helper_method :current_user, :admin?, :current_admin_departamentos
+  helper_method :current_user, :admin?, :current_admin_departamentos,
+                :usuario_logado, :discente_logado?, :docente_logado?, :admin_logado?
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
@@ -61,11 +18,35 @@ class ApplicationController < ActionController::Base
     @current_admin_departamentos ||= current_user&.departamentos || Departamento.none
   end
 
+  def discente_atual
+    current_user
+  end
+
+  def usuario_logado
+    current_user
+  end
+
+  def discente_logado?
+    current_user&.perfil == "Discente"
+  end
+
+  def docente_logado?
+    current_user&.perfil == "Docente"
+  end
+
+  def admin_logado?
+    admin?
+  end
+
   def require_login
-    redirect_to login_path unless current_user
+    redirect_to login_path, alert: "Você precisa estar logado." unless current_user
   end
 
   def require_admin
     redirect_to root_path, alert: "Acesso restrito a administradores" unless admin? && current_admin_departamentos.exists?
+  end
+
+  def exigir_discente!
+    redirect_to root_path, alert: "Acesso restrito a discentes." unless current_user&.perfil == "Discente"
   end
 end

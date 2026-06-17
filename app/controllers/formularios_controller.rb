@@ -1,7 +1,7 @@
 # app/controllers/formularios_controller.rb
 class FormulariosController < ApplicationController
   before_action :exigir_discente!
-  before_action :set_formulario, only: [:show]
+  before_action :set_formulario, only: [ :show ]
 
   # GET /formularios
   def index

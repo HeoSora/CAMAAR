@@ -2,4 +2,8 @@
 # CVEs that are not relevant to the application can be enumerated on the ignore list below.
 
 ignore:
-  - CVE-THAT-DOES-NOT-APPLY
+  # Transitivo via stdlib/mail stack; não é usado diretamente pela aplicação hoje.
+  # Remover assim que a atualização do net-imap puder ser refletida no lockfile.
+  - CVE-2026-47240
+  - CVE-2026-47241
+  - CVE-2026-47242
