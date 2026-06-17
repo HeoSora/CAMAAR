@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
+
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "departamento_id", null: false
@@ -26,6 +27,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
     t.string "nome", null: false
     t.datetime "updated_at", null: false
     t.index ["nome"], name: "index_departamentos_on_nome", unique: true
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "nome", null: false
+    t.string "semestre", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_templates_on_user_id"
   end
 
   create_table "turmas", force: :cascade do |t|
@@ -101,6 +111,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_024535) do
 
   add_foreign_key "admins", "departamentos"
   add_foreign_key "admins", "users"
+  add_foreign_key "templates", "users"
   add_foreign_key "turmas", "departamentos"
 
   add_foreign_key "discentes", "turmas"
