@@ -7,6 +7,8 @@ class CreateUsers < ActiveRecord::Migration[8.1]
       t.string :perfil, null: false
       t.string :password_digest, null: false
 
+      t.boolean :primeiro_acesso, default: true
+
       t.timestamps
     end
 
