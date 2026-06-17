@@ -34,99 +34,11 @@
     <form action="/admin/importar_json" enctype="multipart/form-data" method="post" id="secao_importa">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <fieldset style="border: none; padding: 0; margin: 0;">
-        <input type="file" id="arquivo_json" name="arquivo_json" accept=".json" style="display: none;" onchange="this.form.submit();" />
+        <input type="file" id="arquivo_json" name="json" accept=".json" style="display: none;" onchange="this.form.submit();" />
+
+        <button type="submit" id="botao_enviar_oculto" style="display: none;">Enviar</button>
+      
       </fieldset>
     </form>
-
-
-<!---->
-<hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;" />
-
-<div class="dashboard-tabelas">
-  
-  <div class="secao-tabela" style="margin-bottom: 40px;">
-    <h2>Turmas Cadastradas (<%= @turmas.count %>)</h2>
-    <% if @turmas.any? %>
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
-        <thead>
-          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
-            <th style="padding: 12px;">Código da Disciplina</th>
-            <th style="padding: 12px;">Turma</th>
-            <th style="padding: 12px;">Semestre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @turmas.each do |turma| %>
-            <tr style="border-bottom: 1px solid #dee2e6;">
-              <td style="padding: 12px; font-weight: bold;"><%= turma.codigo.upcase %></td>
-              <td style="padding: 12px;"><%= turma.turma %></td>
-              <td style="padding: 12px;"><%= turma.semestre %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p style="color: #777; font-style: italic;">Nenhuma turma cadastrada.</p>
-    <% end %>
-  </div>
-
-  <div class="secao-tabela" style="margin-bottom: 40px;">
-    <h2>Discentes Cadastrados (<%= @discentes.count %>)</h2>
-    <% if @discentes.any? %>
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
-        <thead>
-          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
-            <th style="padding: 12px;">Nome</th>
-            <th style="padding: 12px;">Matrícula</th>
-            <th style="padding: 12px;">Curso</th>
-            <th style="padding: 12px;">E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @discentes.each do |aluno| %>
-            <tr style="border-bottom: 1px solid #dee2e6;">
-              <td style="padding: 12px;"><%= aluno.nome.titleize %></td>
-              <td style="padding: 12px;"><%= aluno.matricula %></td>
-              <td style="padding: 12px;"><%= aluno.curso.upcase %></td>
-              <td style="padding: 12px; color: #555;"><%= aluno.email %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p style="color: #777; font-style: italic;">Nenhum discente cadastrado.</p>
-    <% end %>
-  </div>
-
-  <div class="secao-tabela" style="margin-bottom: 40px;">
-    <h2>Docentes Cadastrados (<%= @docentes.count %>)</h2>
-    <% if @docentes.any? %>
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; box-shadow: 0 2px 3px rgba(0,0,0,0.1);">
-        <thead>
-          <tr style="background-color: #f4f6f9; border-bottom: 2px solid #dee2e6;">
-            <th style="padding: 12px;">Nome</th>
-            <th style="padding: 12px;">Departamento / Ocupação</th>
-            <th style="padding: 12px;">Usuário de Login</th>
-            <th style="padding: 12px;">E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @docentes.each do |professor| %>
-            <tr style="border-bottom: 1px solid #dee2e6;">
-              <td style="padding: 12px;"><%= professor.nome.titleize %></td>
-              <td style="padding: 12px;"><%= professor.ocupacao&.upcase %></td>
-              <td style="padding: 12px; font-family: monospace;"><%= professor.usuario %></td>
-              <td style="padding: 12px; color: #555;"><%= professor.email %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p style="color: #777; font-style: italic;">Nenhum docente cadastrado.</p>
-    <% end %>
-  </div>
-
-</div>
-<!---->
     
 </section>

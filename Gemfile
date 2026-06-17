@@ -68,8 +68,10 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem "activerecord-import"
 
 # gem para o firefox
 # group :test do
 #  gem "webdrivers", "~> 5.0"
 # end
+

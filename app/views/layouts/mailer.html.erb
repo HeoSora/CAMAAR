@@ -8,6 +8,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <h1>Olá, <%= @usuario.nome %>!</h1>
+
+    <p>Para acessar o sistema CAMAAR defina a sua senha</p>
+
+    <p>
+      <%= link_to 'Definir Minha Senha', @url_definir_senha %>
+    </p>
+    
   </body>
 </html>

@@ -38,12 +38,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_063634) do
   end
 
   create_table "docentes", force: :cascade do |t|
-    t.string "ccupacao"
     t.datetime "created_at", null: false
     t.string "departamento"
     t.string "email"
     t.string "formacao"
     t.string "nome"
+    t.string "ocupacao"
     t.string "turma"
     t.datetime "updated_at", null: false
     t.string "usuario"
@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_063634) do
     t.string "nome", null: false
     t.string "password_digest", null: false
     t.string "perfil", null: false
+    t.boolean "primeiro_acesso", default: true
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["matricula"], name: "index_users_on_matricula", unique: true

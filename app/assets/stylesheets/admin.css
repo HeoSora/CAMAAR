@@ -4,13 +4,16 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
-/*.header_admin{
-    position: fixed;
-    top: 0;
-    left: 0;
+/*
+.header_admin{
+    color: yellow;
     width: 100%;
-    z-index: 10;
+    height: 0;
+    background-color: yellow;
+    top:0;
+
+
+    padding: 40px 0 10px 0;
 }
 */
 
@@ -22,7 +25,7 @@ body{
 nav.navbar{
     width: 80px;
     height: 100%;
-    background-color: #7a0553;
+    background-color: #6f2477;
 
     padding: 40px 0 40px 1%;
 
@@ -88,6 +91,8 @@ section{
 ul.nav-menu{
     height: 100%;
     list-style-type: none;
+    
+    padding-top: 10px;
 }
 
 ul li.nav-item{
@@ -103,7 +108,7 @@ ul li.ativo{
 }
 
 ul li.nav-item.ativo a{
-    color: #7a0553;
+    color: #6f2477;
 }
 
 
@@ -115,7 +120,7 @@ ul li.nav-item:hover{
 }
 
 ul li.nav-item a:hover{
-    color: #7a0553;
+    color: #6f2477;
 }
 
 ul li.nav-item a{

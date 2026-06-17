@@ -4,6 +4,7 @@ User.find_or_create_by!(email: "discente@camaar.com") do |user|
   user.perfil = "Discente"
   user.password = "123456"
   user.password_confirmation = "123456"
+  t.boolean "primeiro_acesso", default: true
 end
 
 User.find_or_create_by!(email: "admin@camaar.com") do |user|

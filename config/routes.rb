@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #get "sessions/new"
+  # get "sessions/new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -23,9 +23,8 @@ Rails.application.routes.draw do
   get "/avaliacao", to: "dashboards#admin_avaliacao", as: :admin_avaliacao_dashboard
   get "/gerenciamento", to: "dashboards#admin_gerenciamento", as: :admin_gerenciamento_dashboard
 
-  #usando o controller existente
-  #get '/json/importar', to: 'json#importar'
-  #get '/json/resultados', to: 'json#resultados'
-  post 'admin/importar_json', to: 'dashboards#importar_json', as: :importar_json
-
+  # usando o controller existente
+  # get '/json/importar', to: 'json#importar'
+  # get '/json/resultados', to: 'json#resultados'
+  post "admin/importar_json", to: "dashboards#importar_json", as: :importar_json
 end

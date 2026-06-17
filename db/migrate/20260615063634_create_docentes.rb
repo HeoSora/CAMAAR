@@ -7,7 +7,7 @@ class CreateDocentes < ActiveRecord::Migration[8.1]
       t.string :formacao
       t.string :ocupacao
       t.string :email
-      t.string :turma
+      t.references :turma, null: false, foreign_key: true
 
       t.timestamps
     end
