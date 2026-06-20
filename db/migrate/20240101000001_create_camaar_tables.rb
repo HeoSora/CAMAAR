@@ -10,15 +10,12 @@ class CreateCamaarTables < ActiveRecord::Migration[7.1]
       t.string  :password_digest, null: false   # ← era senha_hash (incompatível)
       t.string  :email,           null: false
       t.string  :nome,            null: false
-      t.string  :matricula,       null: false
       t.integer :perfil,          null: false, default: 0  # enum: 0=discente 1=docente 2=admin
       t.boolean :primeiro_acesso, null: false, default: true
       t.timestamps
     end
-    
     add_index :users, :login, unique: true
     add_index :users, :email, unique: true
-    add_index :users, :matricula, unique: true
 
     create_table :departamentos do |t|
       t.string :nome, null: false
