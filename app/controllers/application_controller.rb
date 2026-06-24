@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
                 :usuario_logado, :discente_logado?, :docente_logado?, :admin_logado?
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= Usuario.find_by(id: session[:user_id])
   end
 
   def admin?
