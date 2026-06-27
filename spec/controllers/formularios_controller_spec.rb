@@ -1,19 +1,21 @@
 # spec/controllers/formularios_controller_spec.rb
-require "rails_helper"   # ← CORREÇÃO: era ausente
+require "rails_helper"
 
 RSpec.describe FormulariosController, type: :controller do
   let(:depto)      { create(:departamento) }
+  let(:disciplina) { create(:disciplina) }
+
   let(:usr_doc)    { create(:usuario, perfil: :docente) }
   let(:docente)    { create(:docente, usuario: usr_doc, departamento: depto) }
-  let(:disciplina) { create(:disciplina) }
   let(:turma)      { create(:turma, disciplina: disciplina, docente: docente) }
   let(:template)   { create(:template, docente: docente) }
 
   let(:usr_disc)   { create(:usuario, perfil: :discente, primeiro_acesso: false) }
   let(:discente)   { create(:discente, usuario: usr_disc) }
+  let(:user_disc)  { create(:user, perfil: "Discente", email: usr_disc.email, primeiro_acesso: false) }
 
   before do
-    session[:usuario_id] = usr_disc.id
+    session[:user_id] = user_disc.id
     create(:matricula, discente: discente, turma: turma)
   end
 
@@ -48,23 +50,24 @@ RSpec.describe FormulariosController, type: :controller do
       outra_turma = create(:turma, disciplina: disciplina, docente: docente)
       outro_form  = create(:formulario, turma: outra_turma, template: template)
       get :index
-      todos = assigns(:formularios_pendentes) +
-              assigns(:formularios_respondidos) +
-              assigns(:formularios_fechados)
+      todos = assigns(:formularios_pendentes).to_a +
+              assigns(:formularios_respondidos).to_a +
+              assigns(:formularios_fechados).to_a
       expect(todos).not_to include(outro_form)
     end
 
     context "sem autenticação" do
-      before { session[:usuario_id] = nil }
+      before { session[:user_id] = nil }
 
-      it "redireciona para login" do
+      it "redireciona para root" do
         get :index
-        expect(response).to redirect_to(login_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
     context "logado como docente" do
-      before { session[:usuario_id] = usr_doc.id }
+      let(:user_doc) { create(:user, perfil: "Docente", email: usr_doc.email) }
+      before { session[:user_id] = user_doc.id }
 
       it "redireciona para root" do
         get :index
