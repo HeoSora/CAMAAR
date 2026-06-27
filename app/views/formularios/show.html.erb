@@ -185,10 +185,10 @@
   <h1><%= @formulario.titulo %></h1>
   <div class="formulario-header-meta">
     <span class="header-meta-item">
-      📚 <%= @formulario.turma.disciplina.nome %> · Turma <%= @formulario.turma.codigo %>
+      📚 <%= @formulario.turma.try(:disciplina)&.nome || @formulario.turma.nome %> · Turma <%= @formulario.turma.codigo %>
     </span>
     <span class="header-meta-item">
-      🎓 <%= @formulario.turma.semestre %>
+      🎓 <%= @formulario.turma.try(:semestre) %>
     </span>
     <% if @formulario.prazo %>
       <% dias = (@formulario.prazo.to_date - Date.today).to_i %>

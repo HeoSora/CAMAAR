@@ -10,7 +10,7 @@
       <%# Turma %>
       <span class="meta-item">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14A6 6 0 118 2a6 6 0 010 12z"/></svg>
-        <%= formulario.turma.disciplina.nome %> · Turma <%= formulario.turma.codigo %>
+        <%= formulario.turma.try(:disciplina)&.nome || formulario.turma.nome %> · Turma <%= formulario.turma.codigo %>
       </span>
 
       <%# Prazo %>
