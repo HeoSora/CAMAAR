@@ -16,7 +16,7 @@ Funcionalidade: Visualização de formulários para responder
     Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
     E o sistema registra que eu não possuo matrícula ativa no semestre atual
     Quando eu acesso a aba de "Formulários Pendentes"
-    Então eu devo ver a mensagem "Você não possui formulários pendentes para este semestre"
+    Então devo ver a mensagem "Nenhum formulário pendente. Você está em dia!"
 
   Cenário: [Triste] Não visualizar formulários quando não há matrícula ativa
     Dado que eu estou logado no sistema CAMAAR com o perfil de "discente"
