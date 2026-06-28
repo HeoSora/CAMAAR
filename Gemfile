@@ -72,4 +72,3 @@ group :test do
 end
 
 gem "activerecord-import"
-
