@@ -36,7 +36,7 @@ class EnvioFormulariosController < ApplicationController
 
   def mensagem_erro_validacao(questoes, respostas_params)
     return "Todos os campos obrigatórios devem ser preenchidos" if campos_vazios?(questoes, respostas_params)
-    return "Por favor, insira um valor válido entre 1 e 5" if valores_invalidos?(questoes, respostas_params)
+    "Por favor, insira um valor válido entre 1 e 5" if valores_invalidos?(questoes, respostas_params)
   end
 
   def campos_vazios?(questoes, respostas_params)
