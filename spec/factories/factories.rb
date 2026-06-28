@@ -4,6 +4,15 @@
 # has_secure_password aceita `password` e armazena em `password_digest`
 #
 FactoryBot.define do
+  factory :user do
+    sequence(:nome)      { |n| "User #{n}" }
+    sequence(:email)     { |n| "user#{n}@unb.br" }
+    sequence(:matricula) { |n| "9000#{n.to_s.rjust(5, '0')}" }
+    perfil               { "Discente" }
+    password             { "Senha123!" }
+    primeiro_acesso      { false }
+  end
+
   factory :usuario do
     sequence(:login) { |n| "usuario#{n}" }
     sequence(:email) { |n| "usuario#{n}@unb.br" }
@@ -34,9 +43,11 @@ FactoryBot.define do
   end
 
   factory :turma do
+    association :departamento
     association :disciplina
     association :docente
     sequence(:codigo) { |n| "T#{n}" }
+    sequence(:nome)   { |n| "Turma #{n}" }
     semestre { "2024.1" }
     horario  { "35T45" }
   end

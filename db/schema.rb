@@ -12,107 +12,186 @@
 
 ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
 
-  create_table "admins", force: :cascade do |t|
+  # ── Autenticação (sprint 2) ─────────────────────────────────────────────────
+  create_table "users", force: :cascade do |t|
+    t.string   "email",          null: false
+    t.string   "matricula",      null: false
+    t.string   "nome",           null: false
+    t.string   "password_digest"
+    t.string   "perfil",         null: false
+    t.boolean  "primeiro_acesso", default: true, null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["email"],     name: "index_users_on_email",     unique: true
+    t.index ["matricula"], name: "index_users_on_matricula", unique: true
+  end
+
+  # ── Modelo original BDD (sprint 1) ─────────────────────────────────────────
+  create_table "usuarios", force: :cascade do |t|
+    t.string   "login",          null: false
+    t.string   "password_digest", null: false
+    t.string   "email",          null: false
+    t.string   "nome",           null: false
+    t.integer  "perfil",         null: false, default: 0
+    t.boolean  "primeiro_acesso", null: false, default: true
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["login"], name: "index_usuarios_on_login", unique: true
+    t.index ["email"], name: "index_usuarios_on_email", unique: true
+  end
+
+  # ── Estrutura organizacional ────────────────────────────────────────────────
+  create_table "departamentos", force: :cascade do |t|
+    t.string   "nome",       null: false
     t.datetime "created_at", null: false
-    t.integer "departamento_id", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.index ["nome"], name: "index_departamentos_on_nome", unique: true
+  end
+
+  create_table "admins", force: :cascade do |t|
+    t.integer  "user_id",        null: false
+    t.integer  "departamento_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["departamento_id"], name: "index_admins_on_departamento_id"
     t.index ["user_id", "departamento_id"], name: "index_admins_on_user_id_and_departamento_id", unique: true
     t.index ["user_id"], name: "index_admins_on_user_id"
   end
 
-  create_table "departamentos", force: :cascade do |t|
+  create_table "disciplinas", force: :cascade do |t|
+    t.string   "codigo", null: false
+    t.string   "nome",   null: false
     t.datetime "created_at", null: false
-    t.string "nome", null: false
     t.datetime "updated_at", null: false
-    t.index ["nome"], name: "index_departamentos_on_nome", unique: true
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "nome", null: false
-    t.string "semestre", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_templates_on_user_id"
-  end
-
-  create_table "turmas", force: :cascade do |t|
-    t.string "codigo", null: false
-    t.datetime "created_at", null: false
-    t.integer "departamento_id", null: false
-    t.string "nome", null: false
-    t.datetime "updated_at", null: false
-    t.index ["departamento_id"], name: "index_turmas_on_departamento_id"
-  end
-
-
-  create_table "dado_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "curso"
-    t.string "email"
-    t.string "formacao"
-    t.string "matricula"
-    t.string "nome"
-    t.string "ocupacao"
-    t.datetime "updated_at", null: false
-    t.string "usuario"
-  end
-
-  create_table "discentes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "curso"
-    t.string "email"
-    t.string "formacao"
-    t.string "matricula"
-    t.string "nome"
-    t.string "ocupacao"
-    t.integer "turma_id", null: false
-    t.datetime "updated_at", null: false
-    t.string "usuario"
-    t.index ["turma_id"], name: "index_discentes_on_turma_id"
+    t.index ["codigo"], name: "index_disciplinas_on_codigo", unique: true
   end
 
   create_table "docentes", force: :cascade do |t|
+    t.integer  "usuario_id",     null: false
+    t.integer  "departamento_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "discentes", force: :cascade do |t|
+    t.integer  "usuario_id", null: false
+    t.string   "matricula",  null: false
+    t.string   "curso",      null: false
     t.datetime "created_at", null: false
-    t.string "departamento"
-    t.string "email"
-    t.string "formacao"
-    t.string "nome"
-    t.string "ocupacao"
-    t.string "turma"
     t.datetime "updated_at", null: false
-    t.string "usuario"
+    t.index ["matricula"], name: "index_discentes_on_matricula", unique: true
   end
 
   create_table "turmas", force: :cascade do |t|
-    t.string "codigo"
+    t.string   "codigo",         null: false
+    t.string   "nome",           null: false
+    t.string   "semestre"
+    t.string   "horario"
+    t.integer  "departamento_id", null: false
+    t.integer  "disciplina_id"
+    t.integer  "docente_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["departamento_id"], name: "index_turmas_on_departamento_id"
+  end
+
+  create_table "matriculas", force: :cascade do |t|
+    t.integer  "discente_id", null: false
+    t.integer  "turma_id",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["discente_id", "turma_id"], name: "index_matriculas_on_discente_id_and_turma_id", unique: true
+  end
+
+  # ── Templates e formulários ─────────────────────────────────────────────────
+  create_table "templates", force: :cascade do |t|
+    t.string   "titulo",     null: false
+    t.text     "descricao"
+    t.integer  "docente_id", null: false
     t.datetime "created_at", null: false
-    t.string "semestre"
-    t.string "turma"
     t.datetime "updated_at", null: false
   end
 
-
-
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email", null: false
-    t.string "matricula", null: false
-    t.string "nome", null: false
-    t.string "password_digest"
-    t.string "perfil", null: false
-    t.boolean "primeiro_acesso", default: true, null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["matricula"], name: "index_users_on_matricula", unique: true
+  create_table "questao_templates", force: :cascade do |t|
+    t.text     "enunciado",   null: false
+    t.integer  "tipo",        null: false, default: 0
+    t.integer  "template_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_foreign_key "admins", "departamentos"
-  add_foreign_key "admins", "users"
-  add_foreign_key "templates", "users"
-  add_foreign_key "turmas", "departamentos"
+  create_table "opcao_questoes", force: :cascade do |t|
+    t.string   "texto",              null: false
+    t.integer  "questao_template_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
-  add_foreign_key "discentes", "turmas"
+  create_table "formularios", force: :cascade do |t|
+    t.string   "titulo",      null: false
+    t.datetime "prazo"
+    t.integer  "turma_id",    null: false
+    t.integer  "template_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "questoes", force: :cascade do |t|
+    t.text     "enunciado",          null: false
+    t.integer  "tipo",               null: false, default: 0
+    t.integer  "formulario_id",      null: false
+    t.integer  "questao_template_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "envio_formularios", force: :cascade do |t|
+    t.integer  "formulario_id", null: false
+    t.integer  "discente_id",   null: false
+    t.datetime "enviado_em"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["formulario_id", "discente_id"], name: "index_envio_formularios_on_formulario_id_and_discente_id", unique: true
+  end
+
+  create_table "respostas", force: :cascade do |t|
+    t.text     "conteudo",             null: false
+    t.integer  "envio_formulario_id",  null: false
+    t.integer  "questao_id",           null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  # ── Dados importados SIGAA ──────────────────────────────────────────────────
+  create_table "dado_users", force: :cascade do |t|
+    t.string   "curso"
+    t.string   "email"
+    t.string   "formacao"
+    t.string   "matricula"
+    t.string   "nome"
+    t.string   "ocupacao"
+    t.string   "usuario"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "admins",            "departamentos",    column: "departamento_id"
+  add_foreign_key "admins",            "users",            column: "user_id"
+  add_foreign_key "docentes",          "usuarios",         column: "usuario_id"
+  add_foreign_key "docentes",          "departamentos",    column: "departamento_id"
+  add_foreign_key "discentes",         "usuarios",         column: "usuario_id"
+  add_foreign_key "turmas",            "departamentos",    column: "departamento_id"
+  add_foreign_key "matriculas",        "discentes",        column: "discente_id"
+  add_foreign_key "matriculas",        "turmas",           column: "turma_id"
+  add_foreign_key "templates",         "docentes",         column: "docente_id"
+  add_foreign_key "questao_templates", "templates",        column: "template_id"
+  add_foreign_key "opcao_questoes",    "questao_templates", column: "questao_template_id"
+  add_foreign_key "formularios",       "turmas",           column: "turma_id"
+  add_foreign_key "formularios",       "templates",        column: "template_id"
+  add_foreign_key "questoes",          "formularios",      column: "formulario_id"
+  add_foreign_key "questoes",          "questao_templates", column: "questao_template_id"
+  add_foreign_key "envio_formularios", "formularios",      column: "formulario_id"
+  add_foreign_key "envio_formularios", "discentes",        column: "discente_id"
+  add_foreign_key "respostas",         "envio_formularios", column: "envio_formulario_id"
+  add_foreign_key "respostas",         "questoes",         column: "questao_id"
 end

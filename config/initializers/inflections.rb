@@ -14,3 +14,14 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+# Inflexões para nomes de modelos em português
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.irregular "questao",          "questoes"
+  inflect.irregular "opcao_questao",    "opcao_questoes"
+  inflect.irregular "formulario",       "formularios"
+  inflect.irregular "envio_formulario", "envio_formularios"
+  inflect.irregular "questao_template", "questao_templates"
+  # "resposta" termina em "ta", regra latina /([ti])a$/ impede pluralização
+  inflect.irregular "resposta",         "respostas"
+end

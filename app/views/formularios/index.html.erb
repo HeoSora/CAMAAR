@@ -267,7 +267,7 @@
     <% @turmas.each do |turma| %>
       <div class="turma-chip">
         <span class="turma-chip-dot"></span>
-        <%= turma.disciplina.nome %> · <%= turma.codigo %>
+        <%= turma.try(:disciplina)&.nome || turma.nome %> · <%= turma.codigo %>
       </div>
     <% end %>
   </div>

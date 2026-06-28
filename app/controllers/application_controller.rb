@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   helper_method :current_user, :admin?, :current_admin_departamentos,
-                :usuario_logado, :discente_logado?, :docente_logado?, :admin_logado?
+                :usuario_logado, :discente_logado?, :docente_logado?, :admin_logado?,
+                :discente_atual
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
@@ -19,7 +20,10 @@ class ApplicationController < ActionController::Base
   end
 
   def discente_atual
-    current_user
+    return @discente_atual if defined?(@discente_atual)
+
+    usuario = Usuario.find_by(email: current_user&.email)
+    @discente_atual = usuario&.discente
   end
 
   def usuario_logado
