@@ -9,16 +9,17 @@ module Importer
 
 
       ActiveRecord::Base.transaction do
+          departamento = Departamento.find_or_create_by!(nome: "Ciência da Computação")
         unique_turmas = data_hash.uniq { |t| [ t["code"], t["classCode"], t["semester"] ] }
 
         turma_objects = unique_turmas.map do |t|
-          Turma.new(codigo: t["code"], turma: t["classCode"], semestre: t["semester"], departamento: "Ciência da Computação")
+          Turma.new(codigo: t["code"], nome: t["classCode"], semestre: t["semester"], departamento: departamento)
         end
         # duplicação de objetos
         Turma.import turma_objects, on_duplicate_key_ignore: true, validate: false
 
-        turmas_hash = Turma.all.pluck(:codigo, :turma, :semestre, :id).each_with_object({}) do |(codigo, turma, semestre, id), hash|
-          hash["#{codigo}-#{turma}-#{semestre}"] = id
+        turmas_hash = Turma.all.pluck(:codigo, :nome, :semestre, :id).each_with_object({}) do |(codigo, nome, semestre, id), hash|
+          hash["#{codigo}-#{nome}-#{semestre}"] = id
         end
 
         # armazenar os discentes e docentes
@@ -40,72 +41,85 @@ module Importer
             raw_docentes << d_user.merge("turma_id" => turma_id)
           end
         end
-      
+
 
         unique_discentes = raw_discentes.uniq { |d| d["matricula"] }
         unique_docentes = raw_docentes.uniq { |d| d["email"] }
 
-        discente_objects = unique_discentes.map do |members|
-          Discente.new(
+        usuarios_discente_objects = unique_discentes.map do |members|
+          Usuario.new(
+            login: members["matricula"],
             nome: members["nome"]&.downcase,
-            curso: members["curso"]&.downcase,
+            email: members["email"],
+            perfil: :discente,
+            password: "123456",
+            password_confirmation: "123456",
+            primeiro_acesso: false
+          )
+        end
+        Usuario.import usuarios_discente_objects, on_duplicate_key_ignore: true, validate: false
+
+        emails_importados = usuarios_discente_objects.map(&:email)
+        usuarios_salvos = Usuario.where(email: emails_importados)
+        usuarios_por_email = usuarios_salvos.index_by(&:email)
+
+        discente_objects = unique_discentes.filter_map do |members|
+          usuario = usuarios_por_email[members["email"]]
+          next unless usuario
+
+          Discente.new(
+            usuario: usuario,
             matricula: members["matricula"],
-            usuario: members["usuario"],
-            formacao: members["formacao"]&.downcase,
-            ocupacao: members["ocupacao"]&.downcase,
-            email: members["email"]&.downcase,
-            turma_id: members["turma_id"]
+            curso: members["curso"]&.downcase
           )
         end
         Discente.import discente_objects, on_duplicate_key_ignore: true, validate: false
 
-        users_discente_objects = unique_discentes.map do |members|
-          User.new(
+        matricula_objects = unique_discentes.filter_map do |members|
+          usuario = usuarios_por_email[members["email"]]
+          discente = Discente.find_by(usuario: usuario)
+          turma_id = members["turma_id"]
+
+          next unless discente && turma_id
+
+          Matricula.new(discente: discente, turma_id: turma_id)
+        end
+        Matricula.import matricula_objects, on_duplicate_key_ignore: true, validate: false
+
+        usuarios_salvos.each do |usuario|
+          UserMailer.primeiro_acesso(usuario).deliver_later
+        end
+
+        usuarios_docente_objects = unique_docentes.map do |members|
+          Usuario.new(
+            login: members["email"],
             nome: members["nome"]&.downcase,
-            matricula: members["matricula"],
             email: members["email"],
-            perfil: "Discente",
+            perfil: :docente,
             password: "123456",
             password_confirmation: "123456",
             primeiro_acesso: false
           )
-          
         end
-        User.import users_discente_objects, on_duplicate_key_ignore: true, validate: false
+        Usuario.import usuarios_docente_objects, on_duplicate_key_ignore: true, validate: false
 
-        emails_importados = users_discente_objects.map(&:email)
-        usuarios_salvos = User.where(email: emails_importados)
+        docentes_por_email = Usuario.where(email: usuarios_docente_objects.map(&:email)).index_by(&:email)
 
-        usuarios_salvos.each do |usuario|
-          UsuarioMailer.email_primeiro_acesso(usuario).deliver_later
-        end
+        docente_objects = unique_docentes.filter_map do |members|
+          usuario = docentes_por_email[members["email"]]
+          next unless usuario
 
-        docente_objects = unique_docentes.map do |members|
-          Docente.new(
-            nome: members["nome"]&.downcase,
-            departamento: members["departamento"]&.downcase,
-            usuario: members["usuario"],
-            formacao: members["formacao"]&.downcase,
-            ocupacao: members["ocupacao"]&.downcase,
-            email: members["email"]&.downcase,
-            turma: members["turma_id"]
-          )
+          Docente.new(usuario: usuario, departamento: departamento)
         end
         Docente.import docente_objects, on_duplicate_key_ignore: true, validate: false
 
-        users_docente_objects = unique_docentes.map do |members|
-          User.new(
-            nome: members["nome"]&.downcase,
-            matricula: members["email"],
-            email: members["email"],
-            perfil: "Docente",
-            password: "123456",
-            password_confirmation: "123456",
-            primeiro_acesso: false
-          )
+        unique_docentes.each do |members|
+          usuario = docentes_por_email[members["email"]]
+          docente = Docente.find_by(usuario: usuario)
+          turma = Turma.find_by(id: members["turma_id"])
+
+          turma&.update!(docente: docente) if docente
         end
-        
-        User.import users_docente_objects, on_duplicate_key_ignore: true, validate: false
       end
       # registro de erros
     rescue StandardError => e
