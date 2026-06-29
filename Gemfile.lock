@@ -298,12 +298,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.4-arm-linux-musl)
       racc (~> 1.4)
-      
-    nokogiri (1.19.4-arm64-darwin)
-      racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
-
     nokogiri (1.19.4-x86_64-linux-musl)
       racc (~> 1.4)
     ostruct (0.6.3)
