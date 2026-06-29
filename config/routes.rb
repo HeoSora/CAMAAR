@@ -29,5 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :envio_formularios, only: [ :new, :create ]
+
   resources :turmas, only: [ :index, :show ]
 end

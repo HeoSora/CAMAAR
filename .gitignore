@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+!tmp/rubycritic/
 !/log/.keep
 !/tmp/.keep
 

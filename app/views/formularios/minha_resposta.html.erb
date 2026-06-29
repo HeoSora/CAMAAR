@@ -161,7 +161,7 @@
 <div class="resposta-header-card">
   <div>
     <h1><%= @formulario.titulo %></h1>
-    <p>📚 <%= @formulario.turma.disciplina.nome %> · Turma <%= @formulario.turma.codigo %></p>
+    <p>📚 <%= @formulario.turma.try(:disciplina)&.nome || @formulario.turma.nome %> · Turma <%= @formulario.turma.codigo %></p>
   </div>
   <% if @envio.enviado_em %>
     <div class="enviado-em-badge">

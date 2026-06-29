@@ -59,6 +59,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "rubycritic", require: false
 end
 
 group :test do
@@ -69,6 +70,7 @@ group :test do
   gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
+  gem "rails-controller-testing"
 end
 
 gem "activerecord-import"
