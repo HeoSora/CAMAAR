@@ -71,6 +71,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "rails-controller-testing"
+
+  # gem SImplecov para testes de cobertura
+  gem 'simplecov', require: false
 end
 
 gem "activerecord-import"
