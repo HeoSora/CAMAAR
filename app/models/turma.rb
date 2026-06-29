@@ -7,4 +7,3 @@ class Turma < ApplicationRecord
   validates :codigo, presence: true
   validates :nome, presence: true
 end
-
