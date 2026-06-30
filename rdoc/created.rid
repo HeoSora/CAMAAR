@@ -1,4 +1,4 @@
-Tue, 30 Jun 2026 19:58:56 -0300
+Tue, 30 Jun 2026 20:06:09 -0300
 app/assets/stylesheets/admin.css	Mon, 22 Jun 2026 21:56:17 -0300
 app/assets/stylesheets/admin_gerenciamento.css	Mon, 22 Jun 2026 21:56:17 -0300
 app/assets/stylesheets/application.css	Mon, 22 Jun 2026 21:56:17 -0300
@@ -29,7 +29,7 @@ app/javascript/application.js	Mon, 22 Jun 2026 21:56:17 -0300
 app/javascript/controllers/application.js	Mon, 22 Jun 2026 21:56:17 -0300
 app/javascript/controllers/hello_controller.js	Mon, 22 Jun 2026 21:56:17 -0300
 app/javascript/controllers/index.js	Mon, 22 Jun 2026 21:56:17 -0300
-app/jobs/application_job.rb	Mon, 22 Jun 2026 21:56:17 -0300
+app/jobs/application_job.rb	Tue, 30 Jun 2026 20:05:06 -0300
 app/jobs/application_job.rb_cyclo.html	Mon, 29 Jun 2026 00:07:35 -0300
 app/mailers/application_mailer.rb	Tue, 30 Jun 2026 19:58:52 -0300
 app/mailers/application_mailer.rb_cyclo.html	Sun, 28 Jun 2026 01:34:28 -0300
