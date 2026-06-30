@@ -70,4 +70,23 @@ RSpec.describe "Sistema de Login", type: :system do
 
     expect(page).to have_content("Usuário e/ou senha inválidos")
   end
+  it "permite logout do usuário autenticado" do
+    User.create!(
+      nome: "Discente Logout",
+      email: "discente_logout@camaar.com",
+      matricula: "202400004",
+      perfil: "Discente",
+      password: "123456"
+    )
+
+    visit login_path
+
+    fill_in "E-mail ou matrícula", with: "discente_logout@camaar.com"
+    fill_in "Senha", with: "123456"
+    click_button "Entrar"
+
+    page.driver.submit :delete, logout_path, {}
+
+    expect(page).to have_current_path(login_path)
+  end
 end

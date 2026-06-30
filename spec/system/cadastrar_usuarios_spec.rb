@@ -114,4 +114,84 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     expect(Discente.count).to be > 0
     expect(Docente.count).to be > 0
   end
+
+  it "Tenta importar com um arquivo JSON vazio" do
+    visit '/login'
+    fill_in 'E-mail ou matrícula', with: @admin.email
+    fill_in 'Senha', with: @admin.password
+    click_button 'Entrar'
+    
+    visit '/admin'
+    click_link 'Gerenciamento'
+    
+    # Clica direto para enviar sem dar 'attach_file' em nada (json vazio)
+    click_button('botao_enviar_oculto', visible: false)
+
+    # Verifica se a mensagem de erro que estava vermelha foi exibida na tela
+    expect(page).to have_content("Por favor, selecione um arquivo JSON.")
+  end
+
+  it "Exibe erro caso o serviço de importação retorne falso" do
+    visit '/login'
+    fill_in 'E-mail ou matrícula', with: @admin.email
+    fill_in 'Senha', with: @admin.password
+    click_button 'Entrar'
+    
+    visit '/admin'
+    click_link 'Gerenciamento'
+
+    allow(Importer::AcademicDataImporter).to receive(:import!).and_return(false)
+
+    @arquivo_json = Rails.root.join('class_members.json')
+    attach_file('arquivo_json', @arquivo_json, visible: :any)
+    click_button('botao_enviar_oculto', visible: false)
+
+    # Verifica se o flash[:alert] que estava vermelho foi disparado
+    expect(page).to have_content("Ocorreu um problema ao importar o JSON.")
+  end
+
+
+  it "Trata exceções inesperadas" do
+    visit '/login'
+    fill_in 'E-mail ou matrícula', with: @admin.email
+    fill_in 'Senha', with: @admin.password
+    click_button 'Entrar'
+    
+    visit '/admin'
+    click_link 'Gerenciamento'
+
+    # Força o service a disparar uma exceção 
+    allow(Importer::AcademicDataImporter).to receive(:import!)
+      .and_raise(StandardError.new("Arquivo corrompido ou mal formatado"))
+
+    @arquivo_json = Rails.root.join('class_members.json')
+    attach_file('arquivo_json', @arquivo_json, visible: :any)
+    click_button('botao_enviar_oculto', visible: false)
+
+    # Verifica se o flash[:error] 
+    expect(page).to have_content("Ocorreu um erro na importação: Arquivo corrompido ou mal formatado")
+  end
+
+
+  it "Trata exceções inesperadas caso o serviço de importação dê erro (Cenário de Exception)" do
+    visit '/login'
+    fill_in 'E-mail ou matrícula', with: @admin.email
+    fill_in 'Senha', with: @admin.password
+    click_button 'Entrar'
+    
+    visit '/admin'
+    click_link 'Gerenciamento'
+
+    # Força o service a disparar uma exceção (StandardError) para cair direto no 'rescue' do controller
+    allow(Importer::AcademicDataImporter).to receive(:import!)
+      .and_raise(StandardError.new("Arquivo corrompido ou mal formatado"))
+
+    @arquivo_json = Rails.root.join('class_members.json')
+    attach_file('arquivo_json', @arquivo_json, visible: :any)
+    click_button('botao_enviar_oculto', visible: false)
+
+    # Verifica se o flash[:error] customizado com a mensagem do erro foi disparado
+    expect(page).to have_content("Ocorreu um erro na importação: Arquivo corrompido ou mal formatado")
+  end
+
 end

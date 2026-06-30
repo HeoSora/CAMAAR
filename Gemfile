@@ -40,6 +40,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# gem para documentação
+gem "rdoc"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -73,7 +76,7 @@ group :test do
   gem "rails-controller-testing"
 
   # gem SImplecov para testes de cobertura
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 gem "activerecord-import"
