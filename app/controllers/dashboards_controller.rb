@@ -1,6 +1,6 @@
 require "json"
 
-## Classe para controlar o dashboard par cada perfil
+## Classe para controlar o dashboard para cada perfil
 class DashboardsController < ApplicationController
   before_action :require_login
 
