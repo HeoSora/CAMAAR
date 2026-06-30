@@ -15,7 +15,7 @@
 
     <meta
       name="description"
-      content="Documentation for the Importer::AcademicDataImporter class"
+      content="class Importer::AcademicDataImporter: tt&gt; no banco. Argumentos * Nenhum."
     >
 
 
@@ -28,10 +28,7 @@
 
 
 
-    <meta
-      property="og:description"
-      content="Documentation for Importer::AcademicDataImporter class - API reference and code examples"
-    >
+    <meta property="og:description" content="tt&gt; no banco. Argumentos * Nenhum.">
 
 
 
@@ -43,10 +40,7 @@
 
 
 
-    <meta
-      name="twitter:description"
-      content="Documentation for Importer::AcademicDataImporter class - API reference and code examples"
-    >
+    <meta name="twitter:description" content="tt&gt; no banco. Argumentos * Nenhum.">
 
 
 
@@ -764,6 +758,31 @@
 
   <section class="description">
     
+<p>Classe de leitura e tratamento de banco de dados</p>
+
+<span id="class-Importer::AcademicDataImporter-label-Descri-C3-A7-C3-A3o" class="legacy-anchor"></span>
+<h3 id="class-importer-academicdataimporter-descrio"><a href="#class-importer-academicdataimporter-descrio">Descrição</a></h3>
+
+<p>Classe faz a leitura de um arquivo JSON e cria dados de usuarios para os perfis <a href="../Discente.html"><code>Discente</code></a> e <a href="../Docente.html"><code>Docente</code></a> no banco.</p>
+
+<span id="class-Importer::AcademicDataImporter-label-Argumentos" class="legacy-anchor"></span>
+<h3 id="class-importer-academicdataimporter-argumentos"><a href="#class-importer-academicdataimporter-argumentos">Argumentos</a></h3>
+<ul><li>
+<p>Nenhum.</p>
+</li></ul>
+
+<span id="class-Importer::AcademicDataImporter-label-Retorno" class="legacy-anchor"></span>
+<h3 id="class-importer-academicdataimporter-retorno"><a href="#class-importer-academicdataimporter-retorno">Retorno</a></h3>
+<ul><li>
+<p><code>nil</code></p>
+</li></ul>
+
+<span id="class-Importer::AcademicDataImporter-label-Efeitos+Colaterais" class="legacy-anchor"></span>
+<h3 id="class-importer-academicdataimporter-efeitos-colaterais"><a href="#class-importer-academicdataimporter-efeitos-colaterais">Efeitos Colaterais</a></h3>
+<ul><li>
+<p>Cria turmas, usuários, discentes, matrículas e docentes no banco de dados.</p>
+</li></ul>
+
   </section>
 
 
@@ -813,7 +832,7 @@
 
 
           <div class="method-source-code" id="import-21-source">
-            <pre class="ruby"><span class="ruby-comment"># File app/services/importer/academic_data_importer.rb, line 3</span>
+            <pre class="ruby"><span class="ruby-comment"># File app/services/importer/academic_data_importer.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">import!</span>(<span class="ruby-identifier">upload_file</span>)
   <span class="ruby-identifier">start_time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">current</span>
 
@@ -952,7 +971,34 @@
         <div class="method-description">
 
 
-          
+          <p>Metodo para uploado de arquivo JSON</p>
+
+<span id="method-c-import-21-label-Descri-C3-A7-C3-A3o" class="legacy-anchor"></span>
+<h3 id="method-c-import-21-descrio"><a href="#method-c-import-21-descrio">Descrição</a></h3>
+
+<p>Metodo para parse do arquivo JSON. Insere dados de usuarios nas tabelas de acordo com o perfil.</p>
+
+<span id="method-c-import-21-label-Argumentos" class="legacy-anchor"></span>
+<h3 id="method-c-import-21-argumentos"><a href="#method-c-import-21-argumentos">Argumentos</a></h3>
+<ul><li>
+<p>upload_file.</p>
+</li></ul>
+
+<span id="method-c-import-21-label-Retorno" class="legacy-anchor"></span>
+<h3 id="method-c-import-21-retorno"><a href="#method-c-import-21-retorno">Retorno</a></h3>
+<ul><li>
+<p><code>Booleano</code> - Retorna <code>true</code> se a importação for concluída com sucesso</p>
+</li></ul>
+
+<span id="method-c-import-21-label-Efeitos+Colaterais" class="legacy-anchor"></span>
+<h3 id="method-c-import-21-efeitos-colaterais"><a href="#method-c-import-21-efeitos-colaterais">Efeitos Colaterais</a></h3>
+<ul><li>
+<p>Insere dados nas tabelas: <a href="../Turma.html"><code>Turma</code></a>, <a href="../Usuario.html"><code>Usuario</code></a>, <a href="../Discente.html"><code>Discente</code></a>, <a href="../Matricula.html"><code>Matricula</code></a> e <a href="../Docente.html"><code>Docente</code></a>.</p>
+</li><li>
+<p>Envia e-mails em segundo plano utilizando <a href="../UserMailer.html"><code>UserMailer</code></a>.</p>
+</li><li>
+<p>Levanta uma exceção (<code>StandardError</code>) caso a transação falhe, desfazendo todas as alterações (rollback).</p>
+</li></ul>
 
 
         </div>

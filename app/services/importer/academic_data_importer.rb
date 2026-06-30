@@ -1,5 +1,39 @@
+## Modulo de importação e criação de dados de cadastro
+  ##
+  # === Descrição
+  # Modulo com as funcionalidades de leitura, tratamento e inserção de dados em tabelas.
+  # === Efeitos Colaterais
+  # * Parse do arquivo JSON;
+  # * Busca e registro dos dados; 
+  # * Cria turmas, usuários, discentes, matrículas e docentes no banco de dados.
+  
 module Importer
+  ## Classe de leitura e tratamento de banco de dados
+  ##
+  # === Descrição
+  # Classe faz a leitura de um arquivo JSON e cria dados de usuarios para os perfis <tt>Discente</tt> e <tt>Docente</tt> no banco.
+  # === Argumentos
+  # * Nenhum.
+  # === Retorno
+  # * +nil+
+  # === Efeitos Colaterais
+  # * Cria turmas, usuários, discentes, matrículas e docentes no banco de dados.
+  
   class AcademicDataImporter
+
+    ## Metodo para uploado de arquivo JSON
+    ##
+    # === Descrição
+    # Metodo para parse do arquivo JSON. Insere dados de usuarios nas tabelas de acordo com o perfil.
+    # === Argumentos
+    # * upload_file.
+    # === Retorno
+    # * +Booleano+ - Retorna +true+ se a importação for concluída com sucesso
+    # === Efeitos Colaterais
+    # * Insere dados nas tabelas: <tt>Turma</tt>, <tt>Usuario</tt>, <tt>Discente</tt>, <tt>Matricula</tt> e <tt>Docente</tt>.
+    # * Envia e-mails em segundo plano utilizando <tt>UserMailer</tt>.
+    # * Levanta uma exceção (<tt>StandardError</tt>) caso a transação falhe, desfazendo todas as alterações (rollback).
+    
     def self.import!(upload_file)
       start_time = Time.current
 
