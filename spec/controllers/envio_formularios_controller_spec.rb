@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe EnvioFormulariosController, type: :controller do
   let(:depto)     { create(:departamento) }
-  let(:disciplina){ create(:disciplina) }
+  let(:disciplina) { create(:disciplina) }
   let(:usr_doc)   { create(:usuario, perfil: :docente) }
   let(:docente)   { create(:docente, usuario: usr_doc, departamento: depto) }
   let(:turma)     { create(:turma, disciplina: disciplina, docente: docente) }
