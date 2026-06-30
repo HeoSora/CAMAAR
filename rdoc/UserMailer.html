@@ -15,7 +15,7 @@
 
     <meta
       name="description"
-      content="Documentation for the UserMailer class"
+      content="class UserMailer: Classe de envio de primeiro acesso ao usuário do rails"
     >
 
 
@@ -28,10 +28,7 @@
 
 
 
-    <meta
-      property="og:description"
-      content="Documentation for UserMailer class - API reference and code examples"
-    >
+    <meta property="og:description" content="Classe de envio de primeiro acesso ao usuário do rails">
 
 
 
@@ -43,10 +40,7 @@
 
 
 
-    <meta
-      name="twitter:description"
-      content="Documentation for UserMailer class - API reference and code examples"
-    >
+    <meta name="twitter:description" content="Classe de envio de primeiro acesso ao usuário do rails">
 
 
 
@@ -748,6 +742,8 @@
 
   <section class="description">
     
+<p>Classe de envio de primeiro acesso ao usuário do rails</p>
+
   </section>
 
 
@@ -803,7 +799,7 @@
 
 
           <div class="method-source-code" id="primeiro_acesso-source">
-            <pre class="ruby"><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 2</span>
+            <pre class="ruby"><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">primeiro_acesso</span>(<span class="ruby-identifier">usuario</span>)
   <span class="ruby-ivar">@usuario</span> = <span class="ruby-identifier">usuario</span>
 
@@ -821,7 +817,28 @@
         <div class="method-description">
 
 
-          
+          <span id="method-i-primeiro_acesso-label-Descri-C3-A7-C3-A3o" class="legacy-anchor"></span>
+<h3 id="method-i-primeiro_acesso-descrio"><a href="#method-i-primeiro_acesso-descrio">Descrição</a></h3>
+
+<p>Metodo que recebe um usuario, define uma url_definir_senha e envia um email com o assunto Bem-vindo ao CAMAAR! Defina sua senha de acesso</p>
+
+<span id="method-i-primeiro_acesso-label-Argumentos" class="legacy-anchor"></span>
+<h3 id="method-i-primeiro_acesso-argumentos"><a href="#method-i-primeiro_acesso-argumentos">Argumentos</a></h3>
+<ul><li>
+<p>usuario.</p>
+</li></ul>
+
+<span id="method-i-primeiro_acesso-label-Retorno" class="legacy-anchor"></span>
+<h3 id="method-i-primeiro_acesso-retorno"><a href="#method-i-primeiro_acesso-retorno">Retorno</a></h3>
+<ul><li>
+<p><code>ActionMailer::MessageDelivery</code></p>
+</li></ul>
+
+<span id="method-i-primeiro_acesso-label-Efeitos+Colaterais" class="legacy-anchor"></span>
+<h3 id="method-i-primeiro_acesso-efeitos-colaterais"><a href="#method-i-primeiro_acesso-efeitos-colaterais">Efeitos Colaterais</a></h3>
+<ul><li>
+<p>Cria instancias <code>@usuario</code> e <code>@url_definir_senha</code> para uso na view do e-mail.</p>
+</li></ul>
 
 
         </div>
