@@ -22,7 +22,7 @@ RSpec.describe "Formularios", type: :request do
 
       it "retorna sucesso HTTP 200 e exibe a turma na página" do
         get formularios_path
-        
+
         expect(response).to have_http_status(:success)
         expect(response.body).to include("CIC0097")
         expect(response.body).to include("BANCOS DE DADOS")
@@ -44,7 +44,7 @@ RSpec.describe "Formularios", type: :request do
     context "Cenário Triste: quando o discente NÃO tem matrículas" do
       it "exibe a mensagem de ausência de formulários pendentes" do
         get formularios_path
-        
+
         expect(response.body).to include("Você não possui formulários pendentes para este semestre")
       end
     end
