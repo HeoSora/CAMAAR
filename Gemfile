@@ -73,7 +73,7 @@ group :test do
   gem "rails-controller-testing"
 
   # gem SImplecov para testes de cobertura
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 gem "activerecord-import"
