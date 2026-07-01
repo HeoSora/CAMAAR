@@ -120,10 +120,10 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     fill_in 'E-mail ou matrícula', with: @admin.email
     fill_in 'Senha', with: @admin.password
     click_button 'Entrar'
-    
+
     visit '/admin'
     click_link 'Gerenciamento'
-    
+
     # Clica direto para enviar sem dar 'attach_file' em nada (json vazio)
     click_button('botao_enviar_oculto', visible: false)
 
@@ -136,7 +136,7 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     fill_in 'E-mail ou matrícula', with: @admin.email
     fill_in 'Senha', with: @admin.password
     click_button 'Entrar'
-    
+
     visit '/admin'
     click_link 'Gerenciamento'
 
@@ -156,11 +156,11 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     fill_in 'E-mail ou matrícula', with: @admin.email
     fill_in 'Senha', with: @admin.password
     click_button 'Entrar'
-    
+
     visit '/admin'
     click_link 'Gerenciamento'
 
-    # Força o service a disparar uma exceção 
+    # Força o service a disparar uma exceção
     allow(Importer::AcademicDataImporter).to receive(:import!)
       .and_raise(StandardError.new("Arquivo corrompido ou mal formatado"))
 
@@ -168,7 +168,7 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     attach_file('arquivo_json', @arquivo_json, visible: :any)
     click_button('botao_enviar_oculto', visible: false)
 
-    # Verifica se o flash[:error] 
+    # Verifica se o flash[:error]
     expect(page).to have_content("Ocorreu um erro na importação: Arquivo corrompido ou mal formatado")
   end
 
@@ -178,7 +178,7 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     fill_in 'E-mail ou matrícula', with: @admin.email
     fill_in 'Senha', with: @admin.password
     click_button 'Entrar'
-    
+
     visit '/admin'
     click_link 'Gerenciamento'
 
@@ -193,5 +193,4 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     # Verifica se o flash[:error] customizado com a mensagem do erro foi disparado
     expect(page).to have_content("Ocorreu um erro na importação: Arquivo corrompido ou mal formatado")
   end
-
 end

@@ -1,13 +1,13 @@
 ## Classe padrão para os jobs do rails
 ##
-  # === Descrição
-  # Classe base para os jobs assincronos do rails
-  # === Argumentos
-  # * Nenhum.
-  # === Retorno
-  # * +nil+
-  # === Efeitos Colaterais
-  # * Nenhum.
+# === Descrição
+# Classe base para os jobs assincronos do rails
+# === Argumentos
+# * Nenhum.
+# === Retorno
+# * +nil+
+# === Efeitos Colaterais
+# * Nenhum.
 class ApplicationJob < ActiveJob::Base
   # Automatically retry jobs that encountered a deadlock
   # retry_on ActiveRecord::Deadlocked
