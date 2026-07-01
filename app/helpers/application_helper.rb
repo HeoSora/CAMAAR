@@ -8,5 +8,5 @@
 # * +nil+
 # === Efeitos Colaterais
 # * Nenhum.
-module ApplicationHelpe
+module ApplicationHelper
 end
