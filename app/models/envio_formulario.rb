@@ -16,6 +16,10 @@ class EnvioFormulario < ApplicationRecord
 
   private
 
+  # Adiciona erro de validação quando o formulário associado já está fechado.
+  #
+  # Impede a criação de um envio para formulários cujo prazo já foi encerrado.
+  # @return [void]
   def formulario_deve_estar_aberto
     errors.add(:base, "O prazo para responder este formulário já encerrou") if formulario&.fechado?
   end
