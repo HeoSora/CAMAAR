@@ -21,6 +21,9 @@ class Usuario < ApplicationRecord
   validates :nome,   presence: true
   validates :perfil, presence: true
 
+  # Indica se o usuário ainda está em fluxo de primeiro acesso.
+  #
+  # @return [Boolean] valor armazenado no atributo `primeiro_acesso`
   def primeiro_acesso?
     primeiro_acesso
   end

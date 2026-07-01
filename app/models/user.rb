@@ -15,6 +15,9 @@ class User < ApplicationRecord
             confirmation: true,
             if: -> { password.present? || password_confirmation.present? }
 
+  # Verifica se o usuário já possui senha cadastrada.
+  #
+  # @return [Boolean] true quando o `password_digest` está preenchido
   def password_set?
     password_digest.present?
   end
