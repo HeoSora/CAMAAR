@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get "/admin", to: "dashboards#admin", as: :admin_dashboard
   get "/discente", to: "dashboards#discente", as: :discente_dashboard
-  resources :turmas, only: [:index, :show]
+  resources :turmas, only: [ :index, :show ]
 
   get "/avaliacao", to: "dashboards#admin_avaliacao", as: :admin_avaliacao_dashboard
   get "/gerenciamento", to: "dashboards#admin_gerenciamento", as: :admin_gerenciamento_dashboard

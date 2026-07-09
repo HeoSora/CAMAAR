@@ -19,7 +19,7 @@ class DashboardsController < ApplicationController
 
   # importação do json
   def importar_json
-    # codigo de auxilio
+      # codigo de auxilio
       if params["json"].blank?
         puts "ERRO: O parâmetro 'json' veio vazio!"
         flash[:error] = "Por favor, selecione um arquivo JSON."
@@ -47,7 +47,7 @@ class DashboardsController < ApplicationController
     redirect_to admin_gerenciamento_dashboard_path
   end
 
-  
+
 
 
 

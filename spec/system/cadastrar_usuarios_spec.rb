@@ -59,9 +59,8 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
 
     @import_usuarios = 'Importar Dados'
     expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
-  
-    find('label', text: @import_usuarios).click
 
+    find('label', text: @import_usuarios).click
   end
 
   it "Importar e selecionar o arquivo json" do
@@ -77,19 +76,17 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
 
     @import_usuarios = 'Importar Dados'
     expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
-  
+
     find('label', text: @import_usuarios).click
 
     @arquivo_json = Rails.root.join('class_members.json')
 
     attach_file('arquivo_json', @arquivo_json, visible: :any)
-    
+
     click_button('botao_enviar_oculto', visible: false)
 
-    #div_arquivo = find('#secao_importa').trigger('submit')
-    #expect(page).to_not have_content('Nenhuma turma cadastrada.')
-    
-
+    # div_arquivo = find('#secao_importa').trigger('submit')
+    # expect(page).to_not have_content('Nenhuma turma cadastrada.')
   end
 
   it "Dados validos de importação" do
@@ -104,7 +101,7 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     click_link 'Gerenciamento'
 
     @import_usuarios = 'Importar Dados'
-  
+
     find('label', text: @import_usuarios).click
 
     @arquivo_json = Rails.root.join('class_members.json')
@@ -117,5 +114,4 @@ RSpec.describe "Cadastrar usuário com dados válidos", type: :system do
     expect(Discente.count).to be > 0
     expect(Docente.count).to be > 0
   end
-
 end

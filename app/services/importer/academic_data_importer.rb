@@ -40,7 +40,7 @@ module Importer
             raw_docentes << d_user.merge("turma_id" => turma_id)
           end
         end
-      
+
 
         unique_discentes = raw_discentes.uniq { |d| d["matricula"] }
         unique_docentes = raw_docentes.uniq { |d| d["email"] }
@@ -69,7 +69,6 @@ module Importer
             password_confirmation: "123456",
             primeiro_acesso: false
           )
-          
         end
         User.import users_discente_objects, on_duplicate_key_ignore: true, validate: false
 
@@ -104,7 +103,7 @@ module Importer
             primeiro_acesso: false
           )
         end
-        
+
         User.import users_docente_objects, on_duplicate_key_ignore: true, validate: false
       end
       # registro de erros
