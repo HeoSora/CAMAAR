@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
-
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "departamento_id", null: false
@@ -21,32 +20,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
     t.index ["user_id", "departamento_id"], name: "index_admins_on_user_id_and_departamento_id", unique: true
     t.index ["user_id"], name: "index_admins_on_user_id"
   end
-
-  create_table "departamentos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "nome", null: false
-    t.datetime "updated_at", null: false
-    t.index ["nome"], name: "index_departamentos_on_nome", unique: true
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "nome", null: false
-    t.string "semestre", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_templates_on_user_id"
-  end
-
-  create_table "turmas", force: :cascade do |t|
-    t.string "codigo", null: false
-    t.datetime "created_at", null: false
-    t.integer "departamento_id", null: false
-    t.string "nome", null: false
-    t.datetime "updated_at", null: false
-    t.index ["departamento_id"], name: "index_turmas_on_departamento_id"
-  end
-
 
   create_table "dado_users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -58,6 +31,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
     t.string "ocupacao"
     t.datetime "updated_at", null: false
     t.string "usuario"
+  end
+
+  create_table "departamentos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "nome", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nome"], name: "index_departamentos_on_nome", unique: true
   end
 
   create_table "discentes", force: :cascade do |t|
@@ -86,15 +66,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
     t.string "usuario"
   end
 
-  create_table "turmas", force: :cascade do |t|
-    t.string "codigo"
+  create_table "templates", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "semestre"
-    t.string "turma"
+    t.string "nome", null: false
+    t.string "semestre", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_templates_on_user_id"
   end
 
-
+  create_table "turmas", force: :cascade do |t|
+    t.string "codigo", null: false
+    t.datetime "created_at", null: false
+    t.integer "departamento_id", null: false
+    t.string "nome", null: false
+    t.datetime "updated_at", null: false
+    t.index ["departamento_id"], name: "index_turmas_on_departamento_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -111,8 +99,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_231812) do
 
   add_foreign_key "admins", "departamentos"
   add_foreign_key "admins", "users"
+  add_foreign_key "discentes", "turmas"
   add_foreign_key "templates", "users"
   add_foreign_key "turmas", "departamentos"
-
-  add_foreign_key "discentes", "turmas"
 end
