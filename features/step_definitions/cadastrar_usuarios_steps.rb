@@ -36,7 +36,7 @@ end
 Quando('eu clico em {string}') do |string|
   @import_usuarios = 'Importar Dados'
   expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
-  
+
   find('label', text: @import_usuarios).click
 end
 
@@ -45,14 +45,13 @@ Quando('seleciono um arquivo JSON contendo os dados de novos usuários do SIGAA'
   @arquivo_json = Rails.root.join('class_members.json')
 
   attach_file('arquivo_json', @arquivo_json, visible: :any)
-  
+
   click_button('botao_enviar_oculto', visible: false)
 
-  #div_arquivo = find('#secao_importa').trigger('submit')
-  #expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
-  
-  #find('label', text: @import_usuarios).click
+  # div_arquivo = find('#secao_importa').trigger('submit')
+  # expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
 
+  # find('label', text: @import_usuarios).click
 end
 
 
@@ -105,7 +104,6 @@ end
 
 Então('o usuário não deve ter acesso ao sistema até que a senha seja definida') do
   expect(@discente_user.reload.primeiro_acesso).to be(true)
-
 end
 
 
@@ -115,7 +113,7 @@ Dado('o usuário definiu sua senha') do
   @discente_user.update!(primeiro_acesso: false, password: "1234567", password_confirmation: "1234567")
 end
 
-Então('o sistema deve atualizar o status do usuário para {string}') do 
+Então('o sistema deve atualizar o status do usuário para {string}') do
   expect(@discente_user.primeiro_acesso).to be(false)
 end
 
@@ -138,16 +136,16 @@ end
 Quando('seleciono um arquivo JSON contendo os dados de novos usuários') do
   expect(page).to have_link(@opcao_menu) # mudar para have_link ou have_button dependendo do tipo de elemento
   click_link @opcao_menu
-  
+
   @import_usuarios = 'Importar Dados'
   expect(page).to have_content(@import_usuarios) # mudar para have_link ou have_button dependendo do tipo de elemento
-  
+
   find('label', text: @import_usuarios).click
 
   @arquivo_json = Rails.root.join('class_members.json')
 
   attach_file('arquivo_json', @arquivo_json, visible: :any)
-  
+
   click_button('botao_enviar_oculto', visible: false)
 end
 
